@@ -1,0 +1,42 @@
+/* 自定义样式文件 - 修复CSS变量透明度 */
+:root {
+  --card-bg: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme='dark'] {
+  --card-bg: rgba(18, 18, 18, 0.75) !important;
+}
+
+/* 修复scrollbar语法错误 */
+@-moz-document url-prefix() {
+  * {
+    scrollbar-color: var(--hlscrollbar-bg) transparent;
+  }
+}
+
+/* 强制覆盖卡片背景为半透明 */
+.cardHover,
+.layout > div:first-child:not(.nc),
+#recent-posts .recent-post-item,
+#article-container .shuoshuo-item,
+#aside-content .card-widget,
+.layout .pagination > *:not(.space) {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 暗色模式下的卡片背景 */
+[data-theme='dark'] .cardHover,
+[data-theme='dark'] .layout > div:first-child:not(.nc),
+[data-theme='dark'] #recent-posts .recent-post-item,
+[data-theme='dark'] #article-container .shuoshuo-item,
+[data-theme='dark'] #aside-content .card-widget,
+[data-theme='dark'] .layout .pagination > *:not(.space) {
+  background: rgba(18, 18, 18, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 修复浮动和display冲突 */
+.float-fix {
+  display: block !important;
+}
