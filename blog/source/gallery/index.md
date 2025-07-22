@@ -426,7 +426,7 @@ const GITHUB_CONFIG = {
   apiBase: 'https://api.github.com/repos',
   rawBase: 'https://raw.githubusercontent.com',
   // GitHub个人访问令牌（如果需要访问私有仓库，请在环境变量中设置）
-  token: '', // 留空或从环境变量获取
+  // token: '', // 留空或从环境变量获取
   // 添加备用API和代理服务
   proxyApis: [
     'https://api.github.com/repos',
@@ -476,7 +476,7 @@ async function fetchGitHubContents(path = '') {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
           'User-Agent': 'Gallery-App/1.0',
-          'Authorization': `Bearer ${GITHUB_CONFIG.token}`
+          // 'Authorization': `Bearer ${GITHUB_CONFIG.token}`
         }
       });
       
