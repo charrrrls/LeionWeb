@@ -539,7 +539,7 @@ comments:
   # 两个评论系统的格式: Disqus,Waline
   use: giscus
   # 在按钮旁边显示评论名称
-  text: true
+  text: false
   # 懒加载: 当评论元素进入浏览器视口时，评论系统将被加载
   # 如果设置为true，评论计数将无效
   lazyload: true
