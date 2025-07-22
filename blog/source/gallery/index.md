@@ -126,8 +126,7 @@ body::after {
 
 /* gallery-categories 容器毛玻璃背景 */
 .gallery-main-container .gallery-categories {
-  background: rgba(255, 255, 255, 0.65) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--card-bg)
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
   border-radius: 20px !important;
   padding: 25px !important;
@@ -160,7 +159,7 @@ body::after {
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
 }
@@ -248,7 +247,7 @@ body::after {
   gap: 60px;
   margin: 60px 0 40px;
   padding: 40px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+  background: var(--card-bg);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20px);
