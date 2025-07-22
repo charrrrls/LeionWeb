@@ -402,7 +402,7 @@ darkmode:
   end:
 
 # 在回到顶部按钮中显示滚动百分比
-rightside_scroll_percent: false
+rightside_scroll_percent: true
 
 # 除非您知道它们的工作原理，否则不要修改以下设置
 # 选择: readmode,translate,darkmode,hideAside,toc,chat,comment
@@ -438,7 +438,7 @@ copy:
 
 # 需要安装hexo-wordcount插件
 wordcount:
-  enable: false
+  enable: true
   # 在文章元信息中显示文章字数
   post_wordcount: true
   # 在文章元信息中显示阅读时间
@@ -537,126 +537,23 @@ comments:
   # 如果不需要评论，请留空
   # 选择: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # 两个评论系统的格式: Disqus,Waline
-  use:
+  use: giscus
   # 在按钮旁边显示评论名称
   text: true
   # 懒加载: 当评论元素进入浏览器视口时，评论系统将被加载
   # 如果设置为true，评论计数将无效
-  lazyload: false
+  lazyload: true
   # 在文章的top_img中显示评论计数
-  count: false
+  count: true
   # 在首页显示评论计数
-  card_post_count: false
+  card_post_count: true
 
-# Disqus
-# https://disqus.com/
-disqus:
-  shortname:
-  # 用于最新评论小部件
-  apikey:
-
-# 替代Disqus - 使用Disqus API渲染评论
-# https://github.com/SukkaW/DisqusJS
-disqusjs:
-  shortname:
-  apikey:
-  option:
-
-# Livere
-# https://www.livere.com/
-livere:
-  uid:
-
-# Gitalk
-# https://github.com/gitalk/gitalk
-gitalk:
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
-  option:
-
-# Valine
-# https://valine.js.org
-valine:
-  appId:
-  appKey:
-  avatar: monsterid
-  # 此配置适用于国内自定义域名用户，海外版本将自动检测（无需手动填写）
-  serverURLs:
-  bg:
-  # 使用Valine访客计数作为页面浏览计数
-  visitor: false
-  option:
-
-# Waline - 从Valine分叉的带有后端支持的简单评论系统
-# https://waline.js.org/
-waline:
-  serverURL:
-  bg:
-  # 使用Waline页面浏览计数作为页面浏览计数
-  pageview: false
-  option:
-
-# Utterances
-# https://utteranc.es/
-utterances:
-  repo:
-  # Issue映射: pathname/url/title/og:title
-  issue_term: pathname
-  # 主题: github-light/github-dark/github-dark-orange/icy-dark/dark-blue/photon-dark
-  light_theme: github-light
-  dark_theme: photon-dark
-  js:
-  option:
-
-# Facebook评论插件
-# https://developers.facebook.com/docs/plugins/comments/
-facebook_comments:
-  app_id:
-  # 可选
-  user_id:
-  pageSize: 10
-  # 选择: social / time / reverse_time
-  order_by: social
-  lang: en_US
-
-# Twikoo
-# https://github.com/imaegoo/twikoo
-twikoo:
-  envId:
-  region:
-  # 使用Twikoo访客计数作为页面浏览计数
-  visitor: false
-  option:
-
-# Giscus
-# https://giscus.app/
 giscus:
-  repo:
-  repo_id:
-  category_id:
+  repo: charrrrls/LeionWeb-blog-comments
+  repo_id: R_kgDOPQsrVA  # 请从giscus.app复制实际值
+  category_id: DIC_kwDOPQsrVM4CtRX2  # 请从giscus.app复制实际值
   light_theme: light
   dark_theme: dark
-  js:
-  option:
-
-# Remark42
-# https://remark42.com/docs/configuration/frontend/
-remark42:
-  host:
-  siteId:
-  option:
-
-# Artalk
-# https://artalk.js.org/guide/frontend/config.html
-artalk:
-  server:
-  site:
-  # 使用Artalk访客计数作为页面浏览计数
-  visitor: false
-  option:
 
 # --------------------------------------
 # 聊天服务
