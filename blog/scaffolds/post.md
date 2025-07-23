@@ -1,5 +1,10 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+author: Leion Charrrrls
+cover: ""
+tags: 
+categories: 
+password: ""
 ---
+
