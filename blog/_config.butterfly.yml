@@ -408,11 +408,11 @@ rightside_scroll_percent: true
 # 选择: readmode,translate,darkmode,hideAside,toc,chat,comment
 # 不要重复相同的值
 rightside_item_order:
-  enable: false
-  # 默认: readmode,translate,darkmode,hideAside
-  hide:
-  # 默认: toc,chat,comment
-  show:
+  enable: true
+  # 隐藏不需要的按钮
+  hide: translate,readmode
+  # 显示重要功能
+  show: darkmode,toc,chat,comment
 
 # 右下角配置按钮的动画
 rightside_config_animation: true
@@ -562,22 +562,21 @@ giscus:
 chat:
   # 选择: chatra/tidio/crisp
   # 如果不需要聊天，请留空
-  use:
+  use: tidio
   # 聊天按钮 [推荐]
   # 它将在网站右下角创建一个按钮，并隐藏原始按钮
-  rightside_button: false
+  rightside_button: true
   # 向上滚动时显示原始聊天按钮，向下滚动时隐藏按钮
-  button_hide_show: false
-
-# https://chatra.io/
-chatra:
-  id:
+  button_hide_show: true
 
 # https://www.tidio.com/
 tidio:
-  public_key:
+  public_key: "qoe35ccczulnuspo2xtp559gpjdadd9n"
 
-# https://crisp.chat/en/
+# 清空其他聊天服务配置
+chatra:
+  id:
+
 crisp:
   website_id:
 
@@ -953,6 +952,18 @@ inject:
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
     # - <script src="xxxx"></script>
+    - |
+      <style>
+      /* Tidio聊天窗口优化 */
+      #tidio-chat-iframe {
+        z-index: 9999 !important;
+      }
+      
+      /* 暗色模式下的聊天按钮优化 */
+      [data-theme='dark'] #tidio-chat {
+        filter: brightness(0.9);
+      }
+      </style>
 
 # CDN设置
 # 除非您知道它们的工作原理，否则不要修改以下设置
