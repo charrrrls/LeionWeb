@@ -952,7 +952,7 @@ instantpage: true
 lazyload:
   enable: true
   # 使用浏览器原生懒加载而不是vanilla-lazyload
-  native: true
+  native: false
   # 指定使用懒加载的字段 (site 或 post)
   field: site
   placeholder:
