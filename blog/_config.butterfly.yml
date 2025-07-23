@@ -270,11 +270,34 @@ footer:
   owner:
     enable: true
     since: 2025
-  # 主题和框架的版权信息
   copyright:
     enable: true
-    version: true
-  custom_text:
+    version: false
+  custom_text: |
+    <div id="runtime_span"></div>
+    <div style="margin-top: 10px;">
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">蜀ICP备2024072878号-1</a>
+      <span style="margin: 0 10px;">|</span>
+      <a href="https://blog.hicky.top:8443/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">友情链接</a>
+    </div>
+    <script>
+    function show_runtime(){
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("07/22/2025 00:00:00"); // 网站建立时间
+        Y = new Date();
+        T = (Y.getTime()-X.getTime());
+        M = 24*60*60*1000;
+        a = T/M;
+        A = Math.floor(a);
+        b = (a-A)*24;
+        B = Math.floor(b);
+        c = (b-B)*60;
+        C = Math.floor((b-B)*60);
+        D = Math.floor((c-C)*60);
+        runtime_span.innerHTML = "⏰ 本站已运行: "+A+"天"+B+"小时"+C+"分"+D+"秒"
+    }
+    show_runtime();
+    </script>
 
 # --------------------------------------
 # 侧边栏设置
@@ -302,7 +325,7 @@ aside:
       link: https://github.com/charrrrls
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: This is Leion's Blog
   card_recent_post:
     enable: true
     # 如果设置为0将显示全部
@@ -543,7 +566,7 @@ comments:
   text: false
   # 懒加载: 当评论元素进入浏览器视口时，评论系统将被加载
   # 如果设置为true，评论计数将无效
-  lazyload: true
+  lazyload: false
   # 在文章的top_img中显示评论计数
   count: true
   # 在首页显示评论计数
@@ -953,18 +976,7 @@ inject:
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
     # - <script src="xxxx"></script>
-    - |
-      <style>
-      /* Tidio聊天窗口优化 */
-      #tidio-chat-iframe {
-        z-index: 9999 !important;
-      }
-      
-      /* 暗色模式下的聊天按钮优化 */
-      [data-theme='dark'] #tidio-chat {
-        filter: brightness(0.9);
-      }
-      </style>
+
 
 # CDN设置
 # 除非您知道它们的工作原理，否则不要修改以下设置
