@@ -586,7 +586,7 @@ giscus:
 chat:
   # 选择: chatra/tidio/crisp
   # 如果不需要聊天，请留空
-  use: tidio
+  use: 
   # 聊天按钮 [推荐]
   # 它将在网站右下角创建一个按钮，并隐藏原始按钮
   rightside_button: true
