@@ -1000,7 +1000,7 @@ inject:
     - <script src="/js/mouse-particle-tracker.js"></script>
     - <script src="/js/mouse-effects-controller.js"></script>
     # Vercel Speed Insights
-    - <script type="module">import { inject } from "https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js"; inject();</script>
+    - <script type="module">import pkg from "https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js"; pkg.injectSpeedInsights();</script>
 
 
 
