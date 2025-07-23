@@ -10,7 +10,7 @@ tags:
 categories:
   - 个人经历
   - 技术分享
-password: ""
+password: "12345"
 ---
 
 # 本文详细讲解一下hexo+typora本地写文章的完整流程

@@ -705,7 +705,7 @@ preloader:
 enter_transitions: true
 
 # 默认显示模式 - light (默认) / dark
-display_mode: light
+display_mode: dark
 
 # 美化文章内容的配置
 beautify:
