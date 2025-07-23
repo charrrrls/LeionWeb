@@ -999,7 +999,8 @@ inject:
     - <script src="/js/mouse-fireworks.js"></script>
     - <script src="/js/mouse-particle-tracker.js"></script>
     - <script src="/js/mouse-effects-controller.js"></script>
-    - <script defer src="/_vercel/insights/script.js"></script>
+    # Vercel Speed Insights
+    - <script type="module">import { injectSpeedInsights } from "https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js"; injectSpeedInsights();</script>
 
 
 
