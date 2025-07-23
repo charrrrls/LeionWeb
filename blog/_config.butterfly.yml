@@ -408,11 +408,12 @@ rightside_scroll_percent: true
 # 选择: readmode,translate,darkmode,hideAside,toc,chat,comment
 # 不要重复相同的值
 rightside_item_order:
-  enable: true
-  # 隐藏不需要的按钮
-  hide: translate,readmode
-  # 显示重要功能
-  show: darkmode,toc,chat,comment
+  enable: false
+  # 默认: readmode,translate,darkmode,hideAside
+  hide:
+  # 默认: toc,chat,comment
+  show:
+
 
 # 右下角配置按钮的动画
 rightside_config_animation: true
