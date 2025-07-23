@@ -716,7 +716,7 @@ mask:
 
 # 加载动画
 preloader:
-  enable: true
+  enable: false
   # 来源
   # 1. fullpage-loading
   # 2. pace (进度条)
@@ -945,14 +945,14 @@ snackbar:
 
 # Instant.page
 # https://instant.page/
-instantpage: false
+instantpage: true
 
 # 懒加载
 # https://github.com/verlok/vanilla-lazyload
 lazyload:
   enable: true
   # 使用浏览器原生懒加载而不是vanilla-lazyload
-  native: false
+  native: true
   # 指定使用懒加载的字段 (site 或 post)
   field: site
   placeholder:
@@ -1011,11 +1011,11 @@ CDN:
   # 两者的选项: local/jsdelivr/unpkg/cdnjs/custom
   # 注意: 开发版本只能对内部脚本使用'local'
   # 注意: 当将第三方脚本设置为'local'时，您需要安装hexo-butterfly-extjs
-  internal_provider: local
+  internal_provider: jsdelivr
   third_party_provider: jsdelivr
 
   # 向url添加版本号，true或false
-  version: false
+  version: true
 
   # 自定义格式
   # 例如: https://cdn.staticfile.org/${cdnjs_name}/${version}/${min_cdnjs_file}
