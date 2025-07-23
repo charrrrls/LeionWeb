@@ -2,7 +2,7 @@
 title: hexo+typora写文章
 author: Leion Charrrrls
 date: 2025-07-23 10:45:37
-cover: "https://tc.alcy.cc/i/2025/07/11/686ffafc88691.webp"
+cover: "https://tc.alcy.cc/i/2025/07/11/686fe51edeb8c.webp"
 tags:
   - Hexo
   - Typora
