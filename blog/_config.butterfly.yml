@@ -808,6 +808,26 @@ fireworks:
   zIndex: 9999
   mobile: false
 
+# 自定义鼠标特效系统 - LeionWeb
+mouse_effects:
+  enable: true
+  # 点击烟花特效
+  fireworks:
+    enable: true
+    particleCount: 25
+    gravity: 0.08
+    friction: 0.99
+    autoColor: true
+  # 粒子跟随特效
+  particle_tracker:
+    enable: true
+    particleCount: 20
+    orbitRadius: 40
+    speed: 0.015
+    autoColor: true
+  # 移动设备自动禁用
+  mobile: false
+
 # 鼠标点击效果: 心形符号
 click_heart:
   enable: false
@@ -975,7 +995,10 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
-    # - <script src="xxxx"></script>
+    # LeionWeb 鼠标特效系统
+    - <script src="/js/mouse-fireworks.js"></script>
+    - <script src="/js/mouse-particle-tracker.js"></script>
+    - <script src="/js/mouse-effects-controller.js"></script>
 
 
 # CDN设置

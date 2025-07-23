@@ -43,3 +43,54 @@
 #footer {
   background-color: var(--card-bg);
 }
+
+/* =========================
+   鼠标特效系统样式 - LeionWeb
+   ========================= */
+
+/* 确保Canvas层级和位置正确 */
+canvas[id*="mouse"], canvas[id*="fireworks"], canvas[id*="particle"], #shuicheCanvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  z-index: 9999 !important;
+}
+
+/* 粒子跟随Canvas的最高层级 */
+#shuicheCanvas {
+  z-index: 2147483647 !important;
+}
+
+/* 移动设备隐藏特效 */
+@media (max-width: 768px) {
+  canvas[id*="mouse"], canvas[id*="fireworks"], canvas[id*="particle"], #shuicheCanvas {
+    display: none !important;
+  }
+}
+
+/* 优化性能 - 减少重绘 */
+canvas[id*="mouse"], canvas[id*="fireworks"], canvas[id*="particle"], #shuicheCanvas {
+  will-change: contents;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* 确保不影响页面交互 */
+canvas[id*="mouse"]:hover, 
+canvas[id*="fireworks"]:hover, 
+canvas[id*="particle"]:hover, 
+#shuicheCanvas:hover {
+  pointer-events: none !important;
+}
+
+/* 暗色模式适配 */
+[data-theme='dark'] canvas[id*="mouse"], 
+[data-theme='dark'] canvas[id*="fireworks"], 
+[data-theme='dark'] canvas[id*="particle"], 
+[data-theme='dark'] #shuicheCanvas {
+  mix-blend-mode: screen;
+}
