@@ -999,6 +999,8 @@ inject:
     - <script src="/js/mouse-fireworks.js"></script>
     - <script src="/js/mouse-particle-tracker.js"></script>
     - <script src="/js/mouse-effects-controller.js"></script>
+    - <script defer src="/_vercel/insights/script.js"></script>
+
 
 
 # CDN设置
