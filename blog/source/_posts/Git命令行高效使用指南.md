@@ -2,7 +2,7 @@
 title: "Git命令行高效使用指南"
 date: 2025-07-24 10:10:05
 author: Leion Charrrrls
-cover: "/img/covers/tech/git-commands.jpg"
+cover: "https://img.loliapi.com/i/pc/img567.webp"
 tags: 
   - Git
   - 版本控制
