@@ -436,14 +436,14 @@ layout: page
 <script>
 class RandomGallery {
   constructor() {
-    // 从smart-background.js获取的多个API配置
+    // 从smart-background.js获取的多个API配置 - 按可靠性排序
     this.apis = [
-      { name: 't.mwm.moe', url: 'https://t.mwm.moe/pc', weight: 20, maxPerBatch: 2 },
-      { name: 'seaya.link', url: 'https://api.seaya.link/web?type=file', weight: 25, maxPerBatch: 2 },
-      { name: 't.alcy.cc', url: 'https://t.alcy.cc/fj', weight: 10, maxPerBatch: 2 },
-      { name: 'loliapi.com', url: 'https://www.loliapi.com/acg/', weight: 20, maxPerBatch: 2 },
-      { name: 'imgapi.xl0408', url: 'https://imgapi.xl0408.top/index.php', weight: 8, maxPerBatch: 2 },
-      { name: 'dmoe.cc', url: 'https://www.dmoe.cc/random.php', weight: 5, maxPerBatch: 2 }
+      { name: 'loliapi.com', url: 'https://www.loliapi.com/acg/', weight: 35, maxPerBatch: 4, reliability: 'high' },
+      { name: 't.mwm.moe', url: 'https://t.mwm.moe/pc', weight: 20, maxPerBatch: 2, reliability: 'medium' },
+      { name: 'seaya.link', url: 'https://api.seaya.link/web?type=file', weight: 20, maxPerBatch: 2, reliability: 'medium' },
+      { name: 't.alcy.cc', url: 'https://t.alcy.cc/fj', weight: 10, maxPerBatch: 1, reliability: 'low' },
+      { name: 'imgapi.xl0408', url: 'https://imgapi.xl0408.top/index.php', weight: 8, maxPerBatch: 1, reliability: 'low' },
+      { name: 'dmoe.cc', url: 'https://www.dmoe.cc/random.php', weight: 7, maxPerBatch: 2, reliability: 'medium' }
     ];
     
     this.loadedImages = new Set();
@@ -459,6 +459,8 @@ class RandomGallery {
     this.maxConcurrentLoads = 3;
     this.currentLoads = 0;
     this.apiUsageCount = new Map();
+    this.failedApis = new Set(); // 记录失败的API
+    this.apiRetryCount = new Map(); // API重试计数
     
     this.init();
   }
@@ -513,18 +515,31 @@ class RandomGallery {
     }, 300));
   }
   
-  // 智能API选择器 - 确保每个API每批次最多使用2次
+  // 智能API选择器 - 优先选择可靠的API，避免失败的API
   selectBalancedAPI() {
-    // 过滤出还未达到使用上限的API
+    // 过滤出可用的API（未失败且未达到使用上限）
     const availableApis = this.apis.filter(api => {
       const usageCount = this.apiUsageCount.get(api.name) || 0;
-      return usageCount < api.maxPerBatch;
+      const retryCount = this.apiRetryCount.get(api.name) || 0;
+      
+      return usageCount < api.maxPerBatch && 
+             !this.failedApis.has(api.name) && 
+             retryCount < 3; // 最多重试3次
     });
     
     if (availableApis.length === 0) {
-      // 如果所有API都达到上限，重置计数器
+      // 如果所有API都不可用，重置状态
       this.apiUsageCount.clear();
+      this.failedApis.clear();
+      this.apiRetryCount.clear();
+      console.log('🔄 重置API状态，所有API重新可用');
       return this.selectWeightedRandomAPI(this.apis);
+    }
+    
+    // 优先选择高可靠性的API
+    const highReliabilityApis = availableApis.filter(api => api.reliability === 'high');
+    if (highReliabilityApis.length > 0) {
+      return this.selectWeightedRandomAPI(highReliabilityApis);
     }
     
     return this.selectWeightedRandomAPI(availableApis);
@@ -558,6 +573,8 @@ class RandomGallery {
       this.loadedImages.clear();
       this.imageCache.clear();
       this.apiUsageCount.clear();
+      this.failedApis.clear(); // 刷新时清除失败记录
+      this.apiRetryCount.clear();
       document.getElementById('gallery-grid').innerHTML = '';
       this.currentPage = 1;
       this.loadedCount = 0;
@@ -619,11 +636,24 @@ class RandomGallery {
           completed++;
           this.updateProgress(completed / this.imagesPerLoad * 100);
           console.log(`✅ 第${i + 1}张图片获取成功:`, result.apiSource);
+          // 成功时清除失败记录
+          this.failedApis.delete(selectedAPI.name);
+          this.apiRetryCount.delete(selectedAPI.name);
           return result;
         }).catch(error => {
           completed++;
           this.updateProgress(completed / this.imagesPerLoad * 100);
           console.error(`❌ 第${i + 1}张图片获取失败:`, selectedAPI.name, error.message);
+          
+          // 记录失败的API
+          const retryCount = this.apiRetryCount.get(selectedAPI.name) || 0;
+          this.apiRetryCount.set(selectedAPI.name, retryCount + 1);
+          
+          if (retryCount >= 2) {
+            this.failedApis.add(selectedAPI.name);
+            console.warn(`⚠️ API ${selectedAPI.name} 被标记为失败，暂时跳过`);
+          }
+          
           return null; // 返回null而不是抛出错误
         })
       );
@@ -650,59 +680,56 @@ class RandomGallery {
     try {
       console.log(`🎯 [${index + 1}] ${apiName} 开始获取真实URL，API地址:`, url);
       
-      // 🌟 混合方案：优先使用fetch，失败时回退到img加载
+      // 🌟 混合方案：优先使用fetch追踪重定向，失败时回退到img加载
       let realImageUrl;
       let isRealImageFile = false;
       
       try {
-        // 先尝试fetch方法获取真实URL
+        // 先尝试fetch方法获取真实URL，关键是要追踪重定向
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        
         const response = await fetch(url, {
-          method: 'HEAD', // 只获取头信息，不下载内容
+          method: 'GET', // 改为GET以便追踪重定向
           headers: {
             'Accept': 'image/*',
+            'User-Agent': 'Mozilla/5.0 (compatible; LeionWeb/1.0)',
           },
-          signal: AbortSignal.timeout(8000)
+          signal: controller.signal,
+          redirect: 'follow', // 明确允许跟随重定向
+          cache: 'no-cache'
         });
         
+        clearTimeout(timeoutId);
+        
         if (response.ok) {
+          // response.url 就是最终重定向后的真实URL！
           realImageUrl = response.url;
           console.log(`✅ [${index + 1}] ${apiName} fetch成功获取真实URL:`, realImageUrl);
+          
+          // 验证Content-Type确保是图片
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.startsWith('image/')) {
+            console.log(`🎨 [${index + 1}] ${apiName} 确认为图片类型:`, contentType);
+          }
         } else {
           throw new Error(`HTTP ${response.status}`);
         }
       } catch (fetchError) {
-        console.log(`🔄 [${index + 1}] ${apiName} fetch失败，使用img方法:`, fetchError.message);
+        console.log(`🔄 [${index + 1}] ${apiName} fetch失败，使用img追踪重定向:`, fetchError.message);
         
-        // fetch失败时，使用img标签方法（绕过CORS）
-        realImageUrl = await new Promise((resolve, reject) => {
-          const img = new Image();
-          const timeout = setTimeout(() => {
-            reject(new Error('图片加载超时'));
-          }, 12000);
-          
-          img.onload = () => {
-            clearTimeout(timeout);
-            // img.src就是最终的真实URL
-            resolve(img.src);
-          };
-          
-          img.onerror = () => {
-            clearTimeout(timeout);
-            reject(new Error('图片加载失败'));
-          };
-          
-          img.crossOrigin = 'anonymous'; // 尝试跨域
-          img.src = url;
-        });
+        // fetch失败时，使用更智能的img方法追踪重定向
+        realImageUrl = await this.getImageRealUrlViaImg(url, apiName, index);
         
         console.log(`✅ [${index + 1}] ${apiName} img方法成功获取真实URL:`, realImageUrl);
       }
       
       // 验证是否为真实图片文件地址
-      isRealImageFile = /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(realImageUrl);
+      isRealImageFile = /\.(jpg|jpeg|png|webp|gif|bmp|svg)(\?.*)?$/i.test(realImageUrl);
       
       if (!isRealImageFile) {
         console.warn(`⚠️ [${index + 1}] ${apiName} 返回的URL不是直接图片文件:`, realImageUrl);
+        // 但仍然可能是有效的图片URL，不要抛出错误
       }
       
       // 检查去重
@@ -733,6 +760,56 @@ class RandomGallery {
     }
   }
   
+  // 新增：通过img元素追踪重定向获取真实URL
+  async getImageRealUrlViaImg(url, apiName, index) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const timeout = setTimeout(() => {
+        img.src = '';
+        reject(new Error('图片加载超时'));
+      }, 10000);
+      
+      // 创建一个临时的iframe来捕获网络请求
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      const iframeImg = iframeDoc.createElement('img');
+      
+      iframeImg.onload = () => {
+        clearTimeout(timeout);
+        // 从iframe中获取最终的src，这应该是重定向后的真实URL
+        const realUrl = iframeImg.src;
+        console.log(`🎯 [${index + 1}] ${apiName} iframe方法获取到真实URL:`, realUrl);
+        
+        document.body.removeChild(iframe);
+        resolve(realUrl);
+      };
+      
+      iframeImg.onerror = () => {
+        clearTimeout(timeout);
+        document.body.removeChild(iframe);
+        
+        // iframe方法失败，回退到普通img方法
+        img.onload = () => {
+          // 即使是普通方法，浏览器也会跟随重定向
+          // img.src 可能包含最终URL信息
+          resolve(img.currentSrc || img.src);
+        };
+        
+        img.onerror = () => {
+          img.src = '';
+          reject(new Error('图片加载失败'));
+        };
+        
+        img.src = url;
+      };
+      
+      iframeImg.src = url;
+    });
+  }
+  
   async renderImagesWithLazyLoad(imageUrls) {
     const grid = document.getElementById('gallery-grid');
     
@@ -757,13 +834,28 @@ class RandomGallery {
     const estimatedHeight = 200;
     
     const apiSource = imageData.apiSource || 'unknown';
-    const realImageUrl = imageData.url; // 这已经是真实URL了
+    const realImageUrl = imageData.url; // 这现在应该是真实的重定向后URL
     const isRealFile = imageData.isRealImageFile;
     
-    const buttonText = isRealFile ? '✅ 复制真实图片地址' : '📋 复制地址';
-    const infoText = isRealFile ? 
-      '真实图片文件地址' : 
-      '注意：此URL可能不是直接图片文件';
+    // 检查是否成功获取到重定向后的真实地址
+    const isApiUrl = realImageUrl.includes('t.alcy.cc') || 
+                     realImageUrl.includes('t.mwm.moe') || 
+                     realImageUrl.includes('imgapi.xl0408') || 
+                     realImageUrl.includes('dmoe.cc') || 
+                     realImageUrl.includes('seaya.link');
+    
+    let buttonText, infoText;
+    
+    if (isRealFile && !isApiUrl) {
+      buttonText = '✅ 复制真实图片地址';
+      infoText = '成功追踪到真实图片文件地址';
+    } else if (!isApiUrl) {
+      buttonText = '📋 复制重定向后地址';
+      infoText = '已获取重定向后的真实链接';
+    } else {
+      buttonText = '⚠️ 复制API地址';
+      infoText = '注意：这是原始API地址，可能不是直接图片文件';
+    }
     
     item.innerHTML = `
       <div class="image-placeholder" style="height: ${estimatedHeight}px;">
@@ -984,27 +1076,45 @@ class RandomGallery {
     successMsg.className = 'copy-success';
     
     // 检查是否为真实图片文件地址
-    const isRealImageFile = /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(url);
+    const isRealImageFile = /\.(jpg|jpeg|png|webp|gif|bmp|svg)(\?.*)?$/i.test(url);
     
     // 根据URL长度决定显示方式
     const displayUrl = url.length > 60 ? 
       url.substring(0, 60) + '...' : url;
     
-    const title = isRealImageFile ? 
-      '✅ 真实图片文件地址已复制！' : 
-      '⚠️ 地址已复制（可能不是直接图片文件）';
+    // 检查是否是原始API地址还是重定向后的真实地址
+    const isApiUrl = url.includes('t.alcy.cc') || 
+                     url.includes('t.mwm.moe') || 
+                     url.includes('imgapi.xl0408') || 
+                     url.includes('dmoe.cc') || 
+                     url.includes('seaya.link');
+    
+    let title, description;
+    
+    if (isRealImageFile && !isApiUrl) {
+      title = '✅ 真实图片文件地址已复制！';
+      description = '🎯 通过重定向追踪获取的真实地址';
+    } else if (!isApiUrl && url.includes('http')) {
+      title = '✅ 重定向后的真实地址已复制！';
+      description = '🔄 已追踪到最终图片链接';
+    } else {
+      title = '⚠️ API地址已复制';
+      description = '❌ 未能获取到重定向后的真实地址';
+    }
     
     successMsg.innerHTML = `
-      <div>${title}</div>
-      <div style="font-size: 11px; margin-top: 8px; opacity: 0.9; font-family: monospace;">
+      <div style="font-weight: bold; margin-bottom: 8px;">${title}</div>
+      <div style="font-size: 11px; margin-bottom: 8px; opacity: 0.9; font-family: monospace; word-break: break-all;">
         ${displayUrl}
       </div>
-      <div style="font-size: 10px; margin-top: 5px; opacity: 0.7; color: #4CAF50;">
-        🎯 通过fetch重定向获取
+      <div style="font-size: 10px; opacity: 0.7; color: #4CAF50;">
+        ${description}
       </div>
-      ${isRealImageFile ? 
-        '<div style="font-size: 10px; margin-top: 5px; opacity: 0.7;">✨ 这是真实的图片文件地址！</div>' :
-        '<div style="font-size: 10px; margin-top: 5px; opacity: 0.7;">🔄 此地址可能会重定向</div>'
+      ${isRealImageFile && !isApiUrl ? 
+        '<div style="font-size: 10px; margin-top: 5px; opacity: 0.7;">✨ 这就是真实的图片文件地址！</div>' :
+        isApiUrl ? 
+        '<div style="font-size: 10px; margin-top: 5px; opacity: 0.7; color: #ff9800;">🔧 建议刷新页面重新加载</div>' :
+        '<div style="font-size: 10px; margin-top: 5px; opacity: 0.7;">📍 重定向追踪成功</div>'
       }
     `;
     
