@@ -1003,6 +1003,10 @@ inject:
     - <script src="/js/mouse-fireworks.js"></script>
     - <script src="/js/mouse-particle-tracker.js"></script>
     - <script src="/js/mouse-effects-controller.js"></script>
+    # LeionWeb 粒子背景系统 ✨
+    - <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    - <script src="/js/particles-config.js"></script>
+    - <script src="/js/particles-init.js"></script>
     # Vercel Speed Insights
     - <script defer src="/_vercel/speed-insights/script.js"></script>
 
