@@ -230,6 +230,10 @@ layout: page
   backdrop-filter: blur(10px);
 }
 
+.gallery-item .api-source-tag.error {
+  background: rgba(244, 67, 54, 0.8);
+}
+
 @keyframes shimmer {
   0% { left: -100%; }
   100% { left: 100%; }
@@ -651,17 +655,18 @@ class RandomGallery {
     const grid = document.getElementById('gallery-grid');
     
     imageUrls.forEach((imageData, index) => {
-      const item = this.createLazyImageItem(imageData, index);
+      const item = this.createImageItem(imageData, index);
       grid.appendChild(item);
       
+      // 直接开始加载图片，不等待懒加载
       const img = item.querySelector('img');
       if (img) {
-        this.intersectionObserver.observe(img);
+        this.loadImageDirectly(img);
       }
     });
   }
   
-  createLazyImageItem(imageData, index) {
+  createImageItem(imageData, index) {
     const item = document.createElement('div');
     item.className = 'gallery-item';
     item.style.animationDelay = `${index * 0.1}s`;
@@ -679,9 +684,9 @@ class RandomGallery {
         <div class="api-source-tag">${apiSource}</div>
       </div>
       <img 
-        data-src="${imageData.url}" 
+        src="${imageData.url}" 
         alt="随机图片 - ${apiSource}" 
-        style="display: none;"
+        style="display: none; opacity: 0;"
       >
       <div class="image-overlay">
         <button class="copy-btn" onclick="randomGallery.copyImageUrl('${imageData.url}')">
@@ -694,9 +699,60 @@ class RandomGallery {
     return item;
   }
   
+  // 直接加载图片，不使用懒加载
+  async loadImageDirectly(img) {
+    if (this.currentLoads >= this.maxConcurrentLoads) {
+      this.preloadQueue.push({img, direct: true});
+      return;
+    }
+    
+    this.currentLoads++;
+    const container = img.parentElement;
+    const placeholder = container.querySelector('.image-placeholder');
+    
+    img.onload = () => {
+      // 图片加载完成，显示图片并隐藏占位符
+      img.style.display = 'block';
+      
+      requestAnimationFrame(() => {
+        img.style.opacity = '1';
+        
+        if (placeholder) {
+          placeholder.style.opacity = '0';
+          setTimeout(() => {
+            if (placeholder && placeholder.parentNode) {
+              placeholder.parentNode.removeChild(placeholder);
+            }
+          }, 300);
+        }
+      });
+      
+      this.loadedCount++;
+      this.updateStats();
+      this.processNextInQueue();
+    };
+    
+    img.onerror = () => {
+      // 加载失败时显示错误占位符
+      if (placeholder) {
+        placeholder.innerHTML = `
+          <div class="placeholder-icon">❌</div>
+          <div class="api-source-tag error">加载失败</div>
+        `;
+        placeholder.style.background = 'rgba(244, 67, 54, 0.1)';
+      }
+      this.processNextInQueue();
+    };
+    
+    // 如果图片已经加载完成（缓存），立即触发onload
+    if (img.complete && img.naturalHeight !== 0) {
+      img.onload();
+    }
+  }
+  
   async loadImage(img) {
     if (this.currentLoads >= this.maxConcurrentLoads) {
-      this.preloadQueue.push(img);
+      this.preloadQueue.push({img, direct: false});
       return;
     }
     
@@ -749,8 +805,18 @@ class RandomGallery {
     this.currentLoads--;
     
     if (this.preloadQueue.length > 0) {
-      const nextImg = this.preloadQueue.shift();
-      this.loadImage(nextImg);
+      const next = this.preloadQueue.shift();
+      if (typeof next === 'object' && next.img) {
+        // 新格式：{img, direct}
+        if (next.direct) {
+          this.loadImageDirectly(next.img);
+        } else {
+          this.loadImage(next.img);
+        }
+      } else {
+        // 旧格式：直接是img元素
+        this.loadImage(next);
+      }
     }
   }
   
