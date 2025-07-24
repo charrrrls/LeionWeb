@@ -19,9 +19,10 @@ nav:
 
 menu:
   首页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
-  标签: /tags/ || fas fa-tags
-  分类: /categories/ || fas fa-folder-open
+  文章管理:
+    归档: /archives/ || fas fa-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder-open
   图库: /gallery/ || fas fa-images
   关于: /about/ || fas fa-heart
 
@@ -92,9 +93,9 @@ category_per_img:
 # 页脚的背景图片
 footer_img: false
 
-# 网站背景
-# 可以设置为颜色或图片URL
-background: https://t.mwm.moe/pc
+# 网站背景 - 智能随机背景系统  
+# 将使用 /js/smart-background.js 进行权重随机选择
+background: javascript:void(0)
 
 cover:
   # 是否禁用封面
@@ -995,6 +996,8 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
+    # LeionWeb 智能随机背景系统 🎨
+    - <script src="/js/smart-background.js"></script>
     # LeionWeb 鼠标特效系统
     - <script src="/js/mouse-fireworks.js"></script>
     - <script src="/js/mouse-particle-tracker.js"></script>
