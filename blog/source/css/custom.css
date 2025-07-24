@@ -1,10 +1,26 @@
 /* 自定义样式文件 - 修复CSS变量透明度 */
 :root {
   --card-bg: rgba(255, 255, 255, 0.5) !important;
+  /* 高端商务色彩系统 */
+  --business-primary: #1a1a1a;
+  --business-secondary: #f8f9fa;
+  --business-accent: #c9a96e;
+  --business-text: #2c3e50;
+  --business-text-light: #6c757d;
+  --business-border: #e9ecef;
+  --business-shadow: rgba(0, 0, 0, 0.08);
 }
 
 [data-theme='dark'] {
   --card-bg: rgba(18, 18, 18, 0.75) !important;
+  /* 暗色主题商务色彩 */
+  --business-primary: #f8f9fa;
+  --business-secondary: #1a1a1a;
+  --business-accent: #d4af7a;
+  --business-text: #e9ecef;
+  --business-text-light: #adb5bd;
+  --business-border: #343a40;
+  --business-shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* 隐藏滚动条但保持滚动功能 */
@@ -68,6 +84,292 @@ body {
 
 #footer {
   background-color: var(--card-bg);
+}
+
+/* =========================
+   GitHub风格搜索UI - LeionWeb 
+   ========================= */
+
+/* GitHub色彩系统 */
+:root {
+  --github-canvas-default: #ffffff;
+  --github-canvas-subtle: #f6f8fa;
+  --github-border-default: #d0d7de;
+  --github-border-muted: #d8dee4;
+  --github-fg-default: #1f2328;
+  --github-fg-muted: #656d76;
+  --github-accent-fg: #0969da;
+  --github-accent-emphasis: #0969da;
+  --github-btn-text: #24292f;
+  --github-btn-bg: #f6f8fa;
+  --github-btn-border: rgba(31, 35, 40, 0.15);
+  --github-btn-hover-bg: #f3f4f6;
+  --github-btn-hover-border: rgba(31, 35, 40, 0.15);
+  --github-btn-active-bg: hsla(220, 14%, 93%, 1);
+  --github-shadow-small: 0 1px 0 rgba(31, 35, 40, 0.04);
+  --github-shadow-medium: 0 3px 6px rgba(140, 149, 159, 0.15);
+}
+
+[data-theme='dark'] {
+  --github-canvas-default: #0d1117;
+  --github-canvas-subtle: #161b22;
+  --github-border-default: #30363d;
+  --github-border-muted: #21262d;
+  --github-fg-default: #e6edf3;
+  --github-fg-muted: #7d8590;
+  --github-accent-fg: #2f81f7;
+  --github-accent-emphasis: #2f81f7;
+  --github-btn-text: #c9d1d9;
+  --github-btn-bg: #21262d;
+  --github-btn-border: rgba(240, 246, 252, 0.1);
+  --github-btn-hover-bg: #30363d;
+  --github-btn-hover-border: #8b949e;
+  --github-btn-active-bg: hsla(212, 12%, 18%, 1);
+  --github-shadow-small: 0 0 transparent;
+  --github-shadow-medium: 0 3px 6px #010409;
+}
+
+/* 搜索按钮 - GitHub风格 */
+.search-button, .site-page .search-button {
+  background: var(--github-btn-bg) !important;
+  border: 1px solid var(--github-btn-border) !important;
+  border-radius: 6px !important;
+  padding: 5px 12px !important;
+  color: var(--github-btn-text) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  transition: all 0.15s ease !important;
+  box-shadow: var(--github-shadow-small), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  position: relative !important;
+  text-decoration: none !important;
+}
+
+.search-button:hover, .site-page .search-button:hover {
+  background: var(--github-btn-hover-bg) !important;
+  border-color: var(--github-btn-hover-border) !important;
+  transition-duration: 0.1s !important;
+}
+
+.search-button:active, .site-page .search-button:active {
+  background: var(--github-btn-active-bg) !important;
+  box-shadow: inset 0 1px 0 rgba(31, 35, 40, 0.12) !important;
+}
+
+/* 搜索弹框 - GitHub风格 */
+#algolia-search .search-dialog, #local-search .search-dialog {
+  background: var(--github-canvas-default) !important;
+  border: 1px solid var(--github-border-default) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--github-shadow-medium) !important;
+  max-width: 600px !important;
+}
+
+[data-theme='dark'] #algolia-search .search-dialog,
+[data-theme='dark'] #local-search .search-dialog {
+  background: var(--github-canvas-default) !important;
+  border-color: var(--github-border-default) !important;
+}
+
+/* 搜索输入框 - GitHub风格 */
+#algolia-search .ais-SearchBox input,
+#local-search .search-dialog input {
+  background: var(--github-canvas-default) !important;
+  border: 1px solid var(--github-border-default) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: var(--github-fg-default) !important;
+  transition: border-color 0.15s ease !important;
+  outline: none !important;
+  box-shadow: var(--github-shadow-small) !important;
+}
+
+#algolia-search .ais-SearchBox input::placeholder,
+#local-search .search-dialog input::placeholder {
+  color: var(--github-fg-muted) !important;
+}
+
+#algolia-search .ais-SearchBox input:focus,
+#local-search .search-dialog input:focus {
+  border-color: var(--github-accent-emphasis) !important;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3) !important;
+}
+
+/* 搜索结果项 - GitHub风格 */
+#algolia-search .ais-Hits-item,
+#local-search .local-search-hit-item {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--github-border-muted) !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 16px 0 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+#algolia-search .ais-Hits-item:last-child,
+#local-search .local-search-hit-item:last-child {
+  border-bottom: none !important;
+}
+
+#algolia-search .ais-Hits-item:hover,
+#local-search .local-search-hit-item:hover {
+  background: var(--github-canvas-subtle) !important;
+}
+
+/* 搜索结果标题 - GitHub风格 */
+.algolia-hits-item-title,
+.local-search-hit-item .local-search-hit-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--github-accent-fg) !important;
+  margin-bottom: 4px !important;
+  line-height: 1.25 !important;
+}
+
+.algolia-hits-item-title:hover,
+.local-search-hit-item .local-search-hit-title:hover {
+  text-decoration: underline !important;
+}
+
+/* 搜索结果内容 - GitHub风格 */
+.algolia-hit-item-content,
+.local-search-hit-item-content {
+  color: var(--github-fg-default) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 4px !important;
+}
+
+/* 搜索高亮 - GitHub风格 */
+#algolia-search mark,
+#local-search mark {
+  background: #fff8c5 !important;
+  color: var(--github-fg-default) !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-weight: 600 !important;
+}
+
+[data-theme='dark'] #algolia-search mark,
+[data-theme='dark'] #local-search mark {
+  background: rgba(187, 128, 9, 0.4) !important;
+  color: var(--github-fg-default) !important;
+}
+
+/* 搜索元信息 - GitHub风格 */
+.algolia-hit-item-meta,
+.local-search-hit-item-meta {
+  font-size: 12px !important;
+  color: var(--github-fg-muted) !important;
+  font-weight: 400 !important;
+}
+
+/* 搜索加载指示器 - GitHub风格 */
+.ais-SearchBox-loadingIndicator {
+  color: var(--github-accent-fg) !important;
+}
+
+/* 分页控件 - GitHub风格 */
+#algolia-search .ais-Pagination {
+  margin-top: 24px !important;
+  padding-top: 16px !important;
+  border-top: 1px solid var(--github-border-muted) !important;
+}
+
+#algolia-search .ais-Pagination-item .ais-Pagination-link {
+  background: transparent !important;
+  border: 1px solid var(--github-border-default) !important;
+  border-radius: 6px !important;
+  color: var(--github-accent-fg) !important;
+  font-weight: 500 !important;
+  padding: 8px 12px !important;
+  margin: 0 4px !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+  min-width: 32px !important;
+  text-align: center !important;
+}
+
+#algolia-search .ais-Pagination-item .ais-Pagination-link:hover {
+  background: var(--github-canvas-subtle) !important;
+  border-color: var(--github-border-default) !important;
+  text-decoration: none !important;
+}
+
+#algolia-search .ais-Pagination-item--selected .ais-Pagination-link {
+  background: var(--github-accent-emphasis) !important;
+  color: #ffffff !important;
+  border-color: var(--github-accent-emphasis) !important;
+}
+
+/* 搜索信息栏 - GitHub风格 */
+#algolia-info,
+#local-search-info {
+  padding: 12px 0 !important;
+  border-bottom: 1px solid var(--github-border-muted) !important;
+  margin-bottom: 16px !important;
+  font-size: 14px !important;
+  color: var(--github-fg-muted) !important;
+}
+
+.algolia-poweredBy {
+  float: right !important;
+  opacity: 0.8 !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.algolia-poweredBy:hover {
+  opacity: 1 !important;
+}
+
+/* 空搜索结果 - GitHub风格 */
+.algolia-hits-empty,
+.local-search-empty {
+  text-align: center !important;
+  padding: 32px 16px !important;
+  color: var(--github-fg-muted) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+/* 响应式适配 - GitHub风格 */
+@media (max-width: 768px) {
+  #algolia-search .search-dialog,
+  #local-search .search-dialog {
+    margin: 16px !important;
+    border-radius: 8px !important;
+    max-width: none !important;
+  }
+  
+  .algolia-hits-item-title,
+  .local-search-hit-item .local-search-hit-title {
+    font-size: 15px !important;
+  }
+  
+  .algolia-hit-item-content,
+  .local-search-hit-item-content {
+    font-size: 13px !important;
+  }
+  
+  .search-button, .site-page .search-button {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+  }
+  
+  #algolia-search .ais-Pagination-item .ais-Pagination-link {
+    padding: 6px 8px !important;
+    margin: 0 2px !important;
+    min-width: 28px !important;
+  }
+}
+
+/* GitHub风格字体系统 */
+#algolia-search *,
+#local-search * {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif !important;
 }
 
 /* =========================
