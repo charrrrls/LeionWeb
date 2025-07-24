@@ -507,28 +507,23 @@ math:
 # --------------------------------------
 
 search:
-  # 选择: algolia_search / local_search / docsearch
-  # 如果不需要搜索，请留空
-  use:
-  placeholder:
+  # 启用Algolia搜索
+  use: algolia_search
+  placeholder: "搜索Git命令、前端技术..."
 
-  # Algolia搜索
+  # Algolia搜索配置
   algolia_search:
     # 每页搜索结果数量
-    hitsPerPage: 6
+    hitsPerPage: 8
 
-  # 本地搜索
+  # 本地搜索（备用）
   local_search:
-    # 页面加载时预加载搜索数据
     preload: false
-    # 每篇文章显示前n个结果，设置为-1显示所有结果
     top_n_per_article: 1
-    # 将html字符串转义为可读的字符串
     unescape: false
     CDN:
 
   # Docsearch
-  # https://docsearch.algolia.com/
   docsearch:
     appId:
     apiKey:
