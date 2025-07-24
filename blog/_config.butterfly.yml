@@ -24,6 +24,7 @@ menu:
     标签: /tags/ || fas fa-tags
     分类: /categories/ || fas fa-folder-open
   图库: /gallery/ || fas fa-images
+  随机图片: /random-gallery/ || fas fa-random
   关于: /about/ || fas fa-heart
 
 # --------------------------------------
@@ -95,7 +96,7 @@ footer_img: false
 
 # 网站背景 - 智能随机背景系统  
 # 将使用 /js/smart-background.js 进行权重随机选择
-background: javascript:void(0)
+background: https://t.mwm.moe/pc
 
 cover:
   # 是否禁用封面
