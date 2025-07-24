@@ -87,7 +87,7 @@ theme: butterfly
 
 # Algolia搜索配置
 algolia:
-  appId: '5INFST4F2A'
+  applicationID: '5INFST4F2A'
   apiKey: '6d4ddb96ac3fa4b4887f8ce14c27de4b'
   indexName: 'hexo'
   chunkSize: 5000
