@@ -75,31 +75,35 @@ class SmartBackground {
     }
     
     /**
-     * 应用背景到页面
+     * 应用背景到页面和横幅（仅更换图片链接，不修改样式）
      */
     applyBackground(imageUrl) {
-        console.log('🖼️ 正在应用背景到页面...');
+        console.log('🖼️ 正在应用统一图片到页面背景和横幅...');
         
-        // 应用到body背景
+        // 仅更换body背景图片，保持原有样式
         document.body.style.backgroundImage = `url(${imageUrl})`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundAttachment = 'fixed';
         
-        // 也可以应用到特定元素（如果存在）
+        // 仅更换特定背景元素的图片（如果存在）
         const bgElement = document.querySelector('#web_bg, .bg, .background');
         if (bgElement) {
             bgElement.style.backgroundImage = `url(${imageUrl})`;
-            bgElement.style.backgroundSize = 'cover';
-            bgElement.style.backgroundPosition = 'center';
-            bgElement.style.backgroundRepeat = 'no-repeat';
-            console.log('✅ 背景元素样式已应用');
+            console.log('✅ 背景元素图片已更换');
         }
         
-        // 添加淡入效果
-        document.body.style.transition = 'background-image 0.8s ease-in-out';
-        console.log('✨ 背景过渡效果已设置');
+        // 仅更换横幅图片，不修改其他样式
+        const topImgElements = document.querySelectorAll('#page-header, .top-img, .page-header');
+        topImgElements.forEach(element => {
+            element.style.backgroundImage = `url(${imageUrl})`;
+        });
+        
+        if (topImgElements.length > 0) {
+            console.log(`✅ 已更换 ${topImgElements.length} 个横幅元素的图片`);
+        }
+        
+        // 动态设置CSS变量（供主题使用）
+        document.documentElement.style.setProperty('--unified-bg-image', `url(${imageUrl})`);
+        
+        console.log('✨ 统一背景和横幅图片更换完成！');
     }
     
     /**

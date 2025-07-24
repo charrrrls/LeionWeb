@@ -7,6 +7,32 @@
   --card-bg: rgba(18, 18, 18, 0.75) !important;
 }
 
+/* 隐藏滚动条但保持滚动功能 */
+/* Webkit浏览器 (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* 通用方案 - 隐藏所有滚动条 */
+body, html {
+  overflow-x: hidden;
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 和 Edge */
+}
+
 /* 修复scrollbar语法错误 */
 @-moz-document url-prefix() {
   * {

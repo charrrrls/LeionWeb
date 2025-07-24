@@ -134,9 +134,7 @@ body::after {
 
 /* article-container 毛玻璃效果 */
 .article-container {
-  background: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
+
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08) !important;
   border-radius: 16px !important;
@@ -146,9 +144,6 @@ body::after {
 
 /* page 组件优化显示效果 */
 .page {
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
   border-radius: 24px !important;
@@ -165,9 +160,6 @@ body::after {
 
 /* photo-grid 容器毛玻璃背景 */
 .gallery-detail-container .photo-grid {
-  background: rgba(255, 255, 255, 0.65) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
   border-radius: 20px !important;
@@ -246,9 +238,6 @@ body::after {
 .gallery-nav {
   margin-bottom: 40px;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
