@@ -87,15 +87,19 @@ theme: butterfly
 
 # Algolia搜索配置
 algolia:
-  applicationID: '5INFST4F2A'
-  apiKey: '6d4ddb96ac3fa4b4887f8ce14c27de4b'  # 搜索专用 API Key（只读）
-  indexName: 'hexo'  # 按照文章建议使用 hexo 作为索引名
+  appId: '5INFST4F2A'
+  apiKey: '6d4ddb96ac3fa4b4887f8ce14c27de4b'
+  indexName: 'hexo'
+  chunkSize: 5000
   fields:
+    - content:strip:truncate,0,500
+    - excerpt:strip
+    - gallery
+    - permalink
+    - photos
+    - slug
+    - tags
     - title
-    - content
-    - url
-  debug: false
-  concurrent: 2
 
 # 搜索配置
 search:
