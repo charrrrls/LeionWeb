@@ -13,12 +13,12 @@ class SmartBackground {
         
         // 图片API配置 - 按权重从高到低排序
         this.apis = [
-            { name: 't.mwm.moe', url: 'https://t.mwm.moe/pc', weight: 30 },
+            { name: 't.mwm.moe', url: 'https://t.mwm.moe/pc', weight: 25 },
             { name: 'seaya.link', url: 'https://api.seaya.link/web?type=file', weight: 5 },
             { name: 't.alcy.cc', url: 'https://t.alcy.cc/fj', weight: 20 },
-            { name: 'loliapi.com', url: 'https://www.loliapi.com/acg/', weight: 20 },
+            { name: 'loliapi.com', url: 'https://www.loliapi.com/acg/', weight: 10 },
             { name: 'imgapi.xl0408', url: 'https://imgapi.xl0408.top/index.php', weight: 8 },
-            { name: '98qy.com', url: 'http://www.98qy.com/sjbz/api.php', weight: 7 },
+            { name: '98qy.com', url: 'http://www.98qy.com/sjbz/api.php', weight: 22 },
             { name: 'dmoe.cc', url: 'https://www.dmoe.cc/random.php', weight: 5 }
         ];
         
