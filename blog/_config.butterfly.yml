@@ -559,7 +559,7 @@ comments:
   # 如果不需要评论，请留空
   # 选择: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # 两个评论系统的格式: Disqus,Waline
-  use: giscus
+  use: twikoo
   # 在按钮旁边显示评论名称
   text: false
   # 懒加载: 当评论元素进入浏览器视口时，评论系统将被加载
@@ -576,6 +576,18 @@ giscus:
   category_id: DIC_kwDOPQsrVM4CtRX2  # 请从giscus.app复制实际值
   light_theme: light
   dark_theme: dark
+
+# Twikoo评论系统
+# https://twikoo.js.org/
+twikoo:
+  envId: https://mongodb-beta-plum.vercel.app
+  region: 
+  visitor: true  # 启用访客统计
+  option:
+    placeholder: '欢迎在这里留下您的想法~ ✨'
+    avatarCDN: 'https://cravatar.cn/avatar/'
+    katex: true
+
 
 # --------------------------------------
 # 聊天服务

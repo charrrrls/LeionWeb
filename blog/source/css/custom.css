@@ -423,5 +423,42 @@ canvas[id*="particle"]:hover,
   mix-blend-mode: screen;
 }
 
+/* =========================
+   Twikoo评论系统自定义样式
+   ========================= */
+
+/* 博主标识自定义 */
+.tk-admin-tag {
+  background: linear-gradient(135deg, var(--business-accent), #49B1F5) !important;
+  color: white !important;
+  border-radius: 12px !important;
+  padding: 2px 8px !important;
+  font-size: 0.75em !important;
+  font-weight: 600 !important;
+  margin-left: 8px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* 可以通过伪元素修改标识文字 */
+.tk-admin-tag::before {
+  content: "站长" !important;  /* 自定义标识文字 */
+}
+
+.tk-admin-tag {
+  font-size: 0 !important;  /* 隐藏原文字 */
+}
+
+/* 博主评论框特殊样式 */
+.tk-comment.tk-admin {
+  border-left: 3px solid var(--business-accent) !important;
+  background: rgba(73, 177, 245, 0.05) !important;
+}
+
+/* 博主头像特殊效果 */
+.tk-comment.tk-admin .tk-avatar {
+  border: 2px solid var(--business-accent) !important;
+  box-shadow: 0 0 10px rgba(73, 177, 245, 0.3) !important;
+}
+
 
 
