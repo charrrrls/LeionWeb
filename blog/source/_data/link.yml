@@ -1,0 +1,31 @@
+- class_name: 我の良师
+  class_desc: 当你的天空突然下起了大雨，那是我在为你炸乌云
+  link_list:
+    - name: GitHub
+      link: https://github.com/
+      avatar: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+      descr: 全球最大的代码托管平台
+    - name: Hexo
+      link: https://hexo.io/
+      avatar: https://hexo.io/icon/favicon-196x196.png
+      descr: 快速、简洁且高效的博客框架
+
+- class_name: 我の益友
+  class_desc: 当你的发丝微乱有阵风吹过，那是我在远处想念你
+  link_list:
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://butterfly.js.org/img/avatar.png
+      descr: 一个基于 Hexo 的 Material Design 风格主题
+    - name: jsDelivr
+      link: https://www.jsdelivr.com/
+      avatar: https://www.jsdelivr.com/img/logo-horizontal.svg
+      descr: 免费的开源 CDN 服务
+
+- class_name: 我の友链
+  class_desc: 如果你迷恋岁月舍不得向前，我就默默记录这诗篇<br>如果你厌倦引力想要去飞行，我就让全世界的风吹向你
+  link_list:
+    - name: Leion's Blog
+      link: https://blog.hicky.top:8443/
+      avatar: /img/avater.jpg
+      descr: 这只是一个小破站而已！

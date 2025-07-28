@@ -25,6 +25,7 @@ menu:
     分类: /categories/ || fas fa-folder-open
   图库: /gallery/ || fas fa-images
   随机图片: /random-gallery/ || fas fa-random
+  友链: /links/ || fas fa-link
   关于: /about/ || fas fa-heart
 
 # --------------------------------------

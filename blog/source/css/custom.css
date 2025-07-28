@@ -416,9 +416,12 @@ canvas[id*="particle"]:hover,
 }
 
 /* 暗色模式适配 */
-[data-theme='dark'] canvas[id*="mouse"], 
-[data-theme='dark'] canvas[id*="fireworks"], 
-[data-theme='dark'] canvas[id*="particle"], 
+[data-theme='dark'] canvas[id*="mouse"],
+[data-theme='dark'] canvas[id*="fireworks"],
+[data-theme='dark'] canvas[id*="particle"],
 [data-theme='dark'] #shuicheCanvas {
   mix-blend-mode: screen;
 }
+
+
+
