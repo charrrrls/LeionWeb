@@ -1,7 +1,7 @@
 ---
 title: Hello World
 date: 2025-07-22 13:00:00
-cover: "https://tc.alcy.cc/i/2025/07/11/686ffac82356f.webp"
+cover: "https://tc.alcy.cc/i/2025/07/29/6887a913530c6.webp"
 tags:
   - Hexo
   - 博客搭建
