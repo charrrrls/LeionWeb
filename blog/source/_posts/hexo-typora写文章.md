@@ -8,7 +8,6 @@ tags:
   - Typora
   - Blog
 categories:
-  - 个人经历
   - 技术分享
 password: ""
 ---

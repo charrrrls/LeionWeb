@@ -10,7 +10,6 @@ tags:
   - Rich
 categories: 
   - 技术分享
-  - 开发工具
 description: 每次用Natapp都要手动登录、购买隧道、配置客户端，实在太麻烦了。索性花了个周末写了个自动化工具，一行命令搞定所有操作，还做了个挺好看的终端界面。
 cover: "https://tc.alcy.cc/i/2025/07/29/6887a9e79cd9e.webp"
 ---
