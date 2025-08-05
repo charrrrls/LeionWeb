@@ -2,15 +2,16 @@
 title: hexo+typora写文章
 slug: hexo-typora-writing-guide
 author: Leion Charrrrls
-date: 2025-07-23 10:45:37
-cover: "https://tc.alcy.cc/i/2025/07/11/686fe51edeb8c.webp"
+cover: 'https://tc.alcy.cc/i/2025/07/11/686fe51edeb8c.webp'
 tags:
   - Hexo
   - Typora
   - Blog
 categories:
   - 技术分享
-password: ""
+password: ''
+abbrlink: 380e83e4
+date: 2025-07-23 10:45:37
 ---
 # 本文详细讲解一下hexo+typora本地写文章的完整流程
 

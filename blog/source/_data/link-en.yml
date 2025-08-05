@@ -1,0 +1,25 @@
+# English version of link.yml for bilingual blog
+
+- class_name: My Friends
+  class_desc: When the wind gently ruffles your hair, that's me missing you from afar
+  link_list:
+    - name: Corn's Garden
+      link: https://blog.hicky.top
+      avatar: https://blog.hicky.top/img/avatar_hu_b92dc5e3da04b55a.png
+      descr: Sharing learning insights and experiences. Rust Python
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://butterfly.js.org/img/avatar.png
+      descr: A Material Design style theme based on Hexo
+    - name: jsDelivr
+      link: https://www.jsdelivr.com/
+      avatar: https://www.jsdelivr.com/img/logo-horizontal.svg
+      descr: Free open source CDN service
+
+- class_name: This Site
+  class_desc: If you're nostalgic for time and reluctant to move forward, I'll silently record this poem<br>If you're tired of gravity and want to fly, I'll let all the winds in the world blow towards you
+  link_list:
+    - name: Leion's Blog
+      link: https://leion.ssatop.top
+      avatar: /img/avater.jpg
+      descr: This is just a little site!

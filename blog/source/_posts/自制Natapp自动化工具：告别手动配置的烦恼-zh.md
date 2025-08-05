@@ -1,18 +1,19 @@
 ---
 title: 自制Natapp自动化工具：告别手动配置的烦恼
 slug: natapp-automation-tool
-date: 2025-08-05 13:38:00
 author: Leion Charrrrls
-tags: 
+tags:
   - Python
   - 自动化
   - Natapp
   - 开发工具
   - Rich
-categories: 
+categories:
   - 技术分享
 description: 每次用Natapp都要手动登录、购买隧道、配置客户端，实在太麻烦了。索性花了个周末写了个自动化工具，一行命令搞定所有操作，还做了个挺好看的终端界面。
-cover: "https://tc.alcy.cc/i/2025/07/29/6887a9e79cd9e.webp"
+cover: 'https://tc.alcy.cc/i/2025/07/29/6887a9e79cd9e.webp'
+abbrlink: 990e8ee4
+date: 2025-08-05 13:38:00
 ---
 
 # 自制Natapp自动化工具：告别手动配置的烦恼

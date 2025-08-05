@@ -1,18 +1,19 @@
 ---
-title: "Mac高效使用技巧总结-别名篇"
+title: Mac高效使用技巧总结-别名篇
 slug: mac-productivity-tips-aliases
-date: 2025-08-02 0:30:00
 author: Leion Charrrrls
-tags: 
+tags:
   - Mac优化
   - 别名设置
   - AI助手
   - 自动化
   - 工作流
-categories: 
+categories:
   - 效率工具
-description: "深度分享Mac下通过别名设置和AI助手构建的高效自动化工作流，包含博客自动化、智能推送等实用技巧"
-cover: "https://raw.gitcode.com/qq_44112897/images/raw/master/comic/26.jpg"
+description: 深度分享Mac下通过别名设置和AI助手构建的高效自动化工作流，包含博客自动化、智能推送等实用技巧
+cover: 'https://raw.gitcode.com/qq_44112897/images/raw/master/comic/26.jpg'
+abbrlink: 98a61be5
+date: 2025-08-02 00:30:00
 ---
 
 ## 📝 前言

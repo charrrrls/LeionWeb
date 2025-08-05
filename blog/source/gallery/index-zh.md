@@ -1,29 +1,29 @@
 ---
-title: Photography Gallery
+title: 摄影图集
+title_en: Photography Gallery
 date: 2025-07-22 13:00:31
 type: "gallery"
 ---
 
 <div class="gallery-main-container">
-  <!-- Loading indicator -->
+  <!-- 加载提示 -->
   <div id="loading-indicator" class="loading-indicator">
     <div class="spinner"></div>
-    <p>Loading gallery data...</p>
+    <p>正在加载图库数据...</p>
   </div>
 
-  <!-- Dynamically generated gallery categories -->
+  <!-- 动态生成的图库分类 -->
   <div id="gallery-categories" class="gallery-categories">
-    <!-- Generated via JavaScript -->
+    <!-- 通过JavaScript动态生成 -->
   </div>
 
-  <!-- Dynamically generated statistics -->
+  <!-- 动态生成的统计信息 -->
   <div id="gallery-stats" class="gallery-stats">
-    <!-- Generated via JavaScript -->
+    <!-- 通过JavaScript动态生成 -->
   </div>
 </div>
 
 <style>
-/* 保持原有的CSS样式不变，只是为了英文版页面 */
 .gallery-main-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -470,7 +470,7 @@ async function fetchGitHubContents(path = '') {
   // 尝试多个API端点
   for (let i = 0; i < urls.length; i++) {
     try {
-      console.log(`Trying API endpoint ${i + 1}:`, urls[i]);
+      console.log(`尝试 API 端点 ${i + 1}:`, urls[i]);
       const response = await fetch(urls[i], {
         method: 'GET',
         headers: {
@@ -482,14 +482,14 @@ async function fetchGitHubContents(path = '') {
       
       if (response.ok) {
         const data = await response.json();
-        console.log('API call successful:', data);
+        console.log('API调用成功:', data);
         return data;
       } else {
-        console.warn(`API endpoint ${i + 1} failed: ${response.status} ${response.statusText}`);
-        if (i === urls.length - 1) throw new Error(`All API endpoints failed, last error: HTTP ${response.status}`);
+        console.warn(`API端点 ${i + 1} 失败: ${response.status} ${response.statusText}`);
+        if (i === urls.length - 1) throw new Error(`所有API端点均失败，最后错误: HTTP ${response.status}`);
       }
     } catch (error) {
-      console.warn(`API endpoint ${i + 1} exception:`, error);
+      console.warn(`API端点 ${i + 1} 异常:`, error);
       if (i === urls.length - 1) {
         // 如果所有API都失败，返回预设数据
         return getFallbackData(path);
@@ -500,17 +500,17 @@ async function fetchGitHubContents(path = '') {
 
 // 备用数据（当API无法访问时使用）
 function getFallbackData(path = '') {
-  console.log('Using fallback data');
+  console.log('使用备用数据');
   
   if (path === '') {
     // 返回根目录的文件夹列表
     return [
-      { name: 'Beijing', type: 'dir' },
-      { name: 'Shanghai', type: 'dir' },
-      { name: 'Shenzhen', type: 'dir' },
-      { name: 'Guangzhou', type: 'dir' },
-      { name: 'Hangzhou', type: 'dir' },
-      { name: 'Chengdu', type: 'dir' }
+      { name: '北京', type: 'dir' },
+      { name: '上海', type: 'dir' },
+      { name: '深圳', type: 'dir' },
+      { name: '广州', type: 'dir' },
+      { name: '杭州', type: 'dir' },
+      { name: '成都', type: 'dir' }
     ];
   } else {
     // 返回文件夹内的示例图片
@@ -534,7 +534,7 @@ async function getImageCount(folderName) {
     );
     return Math.max(imageFiles.length, 5); // 最少显示5张
   } catch (error) {
-    console.warn(`Failed to get image count for ${folderName}, using default:`, error);
+    console.warn(`获取 ${folderName} 图片数量失败，使用默认值:`, error);
     return Math.floor(Math.random() * 15) + 5; // 返回5-20的随机数
   }
 }
@@ -552,17 +552,17 @@ async function getFolderCover(folderName) {
       return `${GITHUB_CONFIG.rawBase}/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/main/${encodeURIComponent(folderName)}/${encodeURIComponent(imageFiles[0].name)}`;
     }
   } catch (error) {
-    console.warn(`Failed to get cover for ${folderName}, using fallback image:`, error);
+    console.warn(`获取 ${folderName} 封面失败，使用备用图片:`, error);
   }
   
   // 返回高质量备用图片
   const cityImages = {
-    'Beijing': 'https://picsum.photos/400/300?random=1',
-    'Shanghai': 'https://picsum.photos/400/300?random=2', 
-    'Shenzhen': 'https://picsum.photos/400/300?random=3',
-    'Guangzhou': 'https://picsum.photos/400/300?random=4',
-    'Hangzhou': 'https://picsum.photos/400/300?random=5',
-    'Chengdu': 'https://picsum.photos/400/300?random=6'
+    '北京': 'https://picsum.photos/400/300?random=1',
+    '上海': 'https://picsum.photos/400/300?random=2', 
+    '深圳': 'https://picsum.photos/400/300?random=3',
+    '广州': 'https://picsum.photos/400/300?random=4',
+    '杭州': 'https://picsum.photos/400/300?random=5',
+    '成都': 'https://picsum.photos/400/300?random=6'
   };
   
   return cityImages[folderName] || `https://picsum.photos/400/300?random=${Math.floor(Math.random() * 100)}`;
@@ -584,7 +584,7 @@ async function loadGalleryData() {
     const folders = rootContents.filter(item => item.type === 'dir');
     
     if (folders.length === 0) {
-      throw new Error('No image folders found');
+      throw new Error('未找到图片文件夹');
     }
     
     // 并行获取每个文件夹的信息
@@ -608,7 +608,7 @@ async function loadGalleryData() {
     const validFolders = folderData.filter(folder => folder.imageCount > 0);
     
     if (validFolders.length === 0) {
-      throw new Error('No folders containing images found');
+      throw new Error('没有找到包含图片的文件夹');
     }
     
     galleryData.folders = validFolders;
@@ -621,7 +621,7 @@ async function loadGalleryData() {
     loadingIndicator.style.display = 'none';
     
   } catch (error) {
-    console.error('Failed to load gallery data:', error);
+    console.error('加载图库数据失败:', error);
     showErrorMessage(error.message);
     loadingIndicator.style.display = 'none';
   }
@@ -646,7 +646,7 @@ function renderGalleryCategories(folders) {
     categoryCard.innerHTML = `
       <div class="category-cover">
         <img 
-          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkxvYWRpbmcuLi48L3RleHQ+PC9zdmc+"
+          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuWKoOi9veS4rS4uLjwvdGV4dD48L3N2Zz4="
           data-src="${thumbnailUrl}"
           data-original="${originalUrl}"
           alt="${folder.name}" 
@@ -657,7 +657,7 @@ function renderGalleryCategories(folders) {
         <div class="category-overlay">
           <div class="category-info">
             <h3>${folder.name}</h3>
-            <p>${folder.imageCount} photos</p>
+            <p>${folder.imageCount}张照片</p>
           </div>
         </div>
       </div>
@@ -678,15 +678,15 @@ function renderGalleryStats(folders) {
   container.innerHTML = `
     <div class="stat-item">
       <div class="stat-number">${totalImages}</div>
-      <div class="stat-label">Photos</div>
+      <div class="stat-label">张照片</div>
     </div>
     <div class="stat-item">
       <div class="stat-number">${folders.length}</div>
-      <div class="stat-label">Locations</div>
+      <div class="stat-label">个景点</div>
     </div>
     <div class="stat-item">
       <div class="stat-number">2025</div>
-      <div class="stat-label">Year</div>
+      <div class="stat-label">拍摄年份</div>
     </div>
   `;
 }
@@ -696,9 +696,9 @@ function showErrorMessage(message) {
   const container = document.getElementById('gallery-categories');
   container.innerHTML = `
     <div class="error-message">
-      <h3>⚠️ Loading Failed</h3>
+      <h3>⚠️ 加载失败</h3>
       <p>${message}</p>
-      <button class="retry-btn" onclick="loadGalleryData()">Retry</button>
+      <button class="retry-btn" onclick="loadGalleryData()">重试</button>
     </div>
   `;
 }

@@ -18,17 +18,17 @@ nav:
   fixed: false
 
 menu:
-  首页: / || fas fa-home
-  文章管理:
-    归档: /archives/ || fas fa-archive
-    标签: /tags/ || fas fa-tags
-    分类: /categories/ || fas fa-folder-open
-  图库: /gallery/ || fas fa-images
-  随机图片: /random-gallery/ || fas fa-random
-  友链: /links/ || fas fa-link
-  语言 || fas fa-language:
+  Home: / || fas fa-home
+  Articles:
+    Archives: /archives/ || fas fa-archive
+    Tags: /tags/ || fas fa-tags
+    Categories: /categories/ || fas fa-folder-open
+  Gallery: /gallery/ || fas fa-images
+  Random Gallery: /random-gallery/ || fas fa-random
+  Links: /links/ || fas fa-link
+  Language || fas fa-language:
     English: /en/ || fas fa-globe
-    中文: / || fas fa-home
+    中文: /../ || fas fa-home
 
 # --------------------------------------
 # 代码块设置
@@ -176,10 +176,10 @@ subtitle:
   source: 1
   # 如果关闭打字机效果，副标题将只显示sub的第一行
   sub:
-    - '欢迎来到LeionWeb技术博客 💻'
-    - '分享前端开发心得 🚀'
-    - '记录编程学习之路 📝'
-    - '探索技术的无限可能 ✨'
+    - 'Welcome to LeionWeb Tech Blog 💻'
+    - 'Sharing Frontend Development Insights 🚀'
+    - 'Recording Programming Learning Journey 📝'
+    - 'Exploring Infinite Possibilities of Technology ✨'
 
 # 首页文章布局
 # 1: 封面在左，信息在右
@@ -328,7 +328,7 @@ aside:
       link: https://github.com/charrrrls
   card_announcement:
     enable: true
-    content: This is Leion's Blog
+    content: Welcome to Leion's Tech Blog
   card_recent_post:
     enable: true
     # 如果设置为0将显示全部
@@ -510,7 +510,7 @@ math:
 search:
   # 启用Algolia搜索
   use: algolia_search
-  placeholder: "搜索Git命令、前端技术..."
+  placeholder: "Search Git commands, frontend tech..."
 
   # Algolia搜索配置
   algolia_search:
@@ -584,7 +584,7 @@ twikoo:
   region: 
   visitor: true  # 启用访客统计
   option:
-    placeholder: '欢迎在这里留下您的想法~ ✨'
+    placeholder: 'Welcome to share your thoughts here~ ✨'
     avatarCDN: 'https://cravatar.cn/avatar/'
     katex: true
 

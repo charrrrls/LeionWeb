@@ -4,7 +4,7 @@
     - let pageContent = content
 
     if flink_url || random
-      - const linkData = flink_url ? false : site.data.link || false
+      - const linkData = flink_url ? false : site.data['link-en'] || false
       script.
         (()=>{
           const replaceSymbol = (str) => {
@@ -54,9 +54,9 @@
         })()
 
     else
-      if site.data.link
+      if site.data['link-en']
         - let result = ""
-        each i in site.data.link
+        each i in site.data['link-en']
           - let className = i.class_name ? markdown(`## ${i.class_name}`) : ""
           - let classDesc = i.class_desc ? `<div class="flink-desc">${i.class_desc}</div>` : ""
 

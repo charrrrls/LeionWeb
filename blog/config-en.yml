@@ -1,19 +1,19 @@
-# Hexo Configuration
+# Hexo Configuration - English Version
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
 title: Leion's Blog
-subtitle: '个人技术博客'
-description: '分享技术心得与生活感悟'
-keywords: 技术,博客,前端,后端
+subtitle: 'Personal Tech Blog'
+description: 'Sharing technical insights and life reflections'
+keywords: technology,blog,frontend,backend
 author: Leion Charrrrls
-language: zh-CN
+language: en
 timezone: ''
 
 # URL
 url: https://leion.ssatop.top
-root: /
+root: /en/
 permalink: posts/:abbrlink.html
 permalink_defaults:
 # 博客链接优化 - 使用slug替代中文标题
@@ -23,7 +23,7 @@ pretty_urls:
 
 # Directory
 source_dir: source
-public_dir: public
+public_dir: public/en   # 直接生成输出到位，省去后续再次移动
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
@@ -83,7 +83,7 @@ pagination_dir: page
 include:
 exclude:
 ignore:
-  - "**/*-en.md"    # 忽略英文文件，只生成中文版本
+  - "**/*-zh.md"    # 忽略中文文件，只生成英文版本
 
 # Extensions
 theme: butterfly
@@ -92,7 +92,7 @@ theme: butterfly
 algolia:
   applicationID: '5INFST4F2A'
   apiKey: '6d4ddb96ac3fa4b4887f8ce14c27de4b'
-  indexName: 'hexo'
+  indexName: 'hexo-en'
   chunkSize: 5000
   fields:
     - content:strip:truncate,0,500

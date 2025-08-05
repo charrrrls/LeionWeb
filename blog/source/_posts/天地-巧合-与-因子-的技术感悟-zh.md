@@ -1,24 +1,25 @@
 ---
-title: "天地「巧合」与「因子」的技术感悟"
+title: 天地「巧合」与「因子」的技术感悟
 slug: philosophy-of-coincidence-and-factors
-date: 2025-04-25 14:05:07
 author: Leion Charrrrls
-cover: "https://cdn.pixabay.com/photo/2015/05/07/15/48/bustos-756620_1280.jpg"
-tags: 
+cover: 'https://cdn.pixabay.com/photo/2015/05/07/15/48/bustos-756620_1280.jpg'
+tags:
   - 哲学思辨
   - 生命起源
   - 因子理论
   - 技术感悟
-categories: 
+categories:
   - 哲学随笔
-description: "从生命起源的巧合到万物因子的影响，一次关于存在本质与技术世界的深度哲学思辨"
-keywords: 
+description: 从生命起源的巧合到万物因子的影响，一次关于存在本质与技术世界的深度哲学思辨
+keywords:
   - 巧合
   - 因子
   - 生命起源
   - 哲学
   - 技术感悟
-excerpt: "天为什么称之为天，地为什么称之为地？从达尔文的进化论到基因突变，从古代的天意到现代的技术，探讨隐藏在万物背后的神秘因子..."
+excerpt: 天为什么称之为天，地为什么称之为地？从达尔文的进化论到基因突变，从古代的天意到现代的技术，探讨隐藏在万物背后的神秘因子...
+abbrlink: 5b038a49
+date: 2025-04-25 14:05:07
 ---
 
 ## 引言：存在的荒谬与命名的宿命

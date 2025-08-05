@@ -1,13 +1,14 @@
 ---
 title: Hello World
 slug: hello-world
-date: 2025-07-22 13:00:00
-cover: "https://tc.alcy.cc/i/2025/07/29/6887a913530c6.webp"
+cover: 'https://tc.alcy.cc/i/2025/07/29/6887a913530c6.webp'
 tags:
   - Hexo
   - 博客搭建
 categories:
   - 技术分享
+abbrlink: 4a17b156
+date: 2025-07-22 13:00:00
 ---
 欢迎来到 [Hexo](https://hexo.io/)！这是您的第一篇文章。更多信息请参考[文档](https://hexo.io/docs/)。如果您在使用Hexo时遇到任何问题，可以在[故障排除](https://hexo.io/docs/troubleshooting.html)中找到答案，或者在[GitHub](https://github.com/hexojs/hexo/issues)向我们提问。
 

@@ -1,15 +1,16 @@
 ---
 title: 我的第一篇技术博客
 slug: my-first-tech-blog
-date: 2025-07-22 13:00:06
-tags: 
+tags:
   - 前端开发
   - JavaScript
   - 博客搭建
-categories: 
+categories:
   - 技术分享
-cover: "https://tc.alcy.cc/i/2025/07/11/686ffa3561fd8.webp"
+cover: 'https://tc.alcy.cc/i/2025/07/11/686ffa3561fd8.webp'
 description: 欢迎来到我的技术博客，这里分享前端开发经验和学习心得
+abbrlink: e0fc1668
+date: 2025-07-22 13:00:06
 ---
 
 # 🎉 欢迎来到LeionWeb技术博客！

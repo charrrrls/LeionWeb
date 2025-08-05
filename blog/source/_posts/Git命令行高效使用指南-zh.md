@@ -1,16 +1,17 @@
 ---
-title: "Git命令行高效使用指南"
+title: Git命令行高效使用指南
 slug: git-command-line-guide
-date: 2025-07-24 10:10:05
 author: Leion Charrrrls
-cover: "https://img.loliapi.com/i/pc/img567.webp"
-tags: 
+cover: 'https://img.loliapi.com/i/pc/img567.webp'
+tags:
   - Git
   - 版本控制
   - 开发工具
-categories: 
+categories:
   - DevOps
-description: "Git核心命令与高效工作流实践，开发者必备命令速查手册"
+description: Git核心命令与高效工作流实践，开发者必备命令速查手册
+abbrlink: '6416e193'
+date: 2025-07-24 10:10:05
 ---
 
 # 掌握Git命令行，提升开发效率 🚀
