@@ -6,4 +6,5 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+blog/themes/butterfly-en/
 blog/themes/butterfly-en
