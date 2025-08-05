@@ -9,7 +9,11 @@ tags:
 categories:
   - 技术分享
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+欢迎来到 [Hexo](https://hexo.io/)！这是您的第一篇文章。更多信息请参考[文档](https://hexo.io/docs/)。如果您在使用Hexo时遇到任何问题，可以在[故障排除](https://hexo.io/docs/troubleshooting.html)中找到答案，或者在[GitHub](https://github.com/hexojs/hexo/issues)向我们提问。
+
+![Hexo Logo](https://hexo.io/logo.svg)
+
+这是一个测试图片，用于演示bp命令的图片检测功能。
 
 ## 🚀 快速开始
 

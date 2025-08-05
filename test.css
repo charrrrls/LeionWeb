@@ -1,0 +1,25 @@
+/* 测试样式文件 */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+.content {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
