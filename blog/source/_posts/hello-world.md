@@ -1,5 +1,6 @@
 ---
 title: Hello World
+slug: hello-world
 date: 2025-07-22 13:00:00
 cover: "https://tc.alcy.cc/i/2025/07/29/6887a913530c6.webp"
 tags:

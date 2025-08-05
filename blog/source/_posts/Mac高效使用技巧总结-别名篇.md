@@ -1,5 +1,6 @@
 ---
 title: "Mac高效使用技巧总结-别名篇"
+slug: mac-productivity-tips-aliases
 date: 2025-08-02 0:30:00
 author: Leion Charrrrls
 tags: 

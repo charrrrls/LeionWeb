@@ -1,5 +1,6 @@
 ---
 title: 自制Natapp自动化工具：告别手动配置的烦恼
+slug: natapp-automation-tool
 date: 2025-08-05 13:38:00
 author: Leion Charrrrls
 tags: 

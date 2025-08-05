@@ -1,5 +1,6 @@
 ---
 title: "Git命令行高效使用指南"
+slug: git-command-line-guide
 date: 2025-07-24 10:10:05
 author: Leion Charrrrls
 cover: "https://img.loliapi.com/i/pc/img567.webp"
