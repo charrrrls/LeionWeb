@@ -2,7 +2,7 @@
 title: Python虚拟环境venv使用命令大全
 slug: venv-usage-commands
 author: Leion Charrrrls
-cover: ''
+cover: 'https://tc.alcy.cc/i/2025/07/29/6887aa3684c34.webp'
 tags:
   - Python
   - venv

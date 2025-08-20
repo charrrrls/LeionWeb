@@ -755,7 +755,7 @@ beautify:
 font:
   global_font_size:
   code_font_size:
-  font_family:
+  font_family: "'Google Sans Code','Noto Sans SC','PingFang SC','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif"
   code_font_family: "'Google Sans Code','JetBrains Mono','Fira Code','Source Code Pro',Menlo,Consolas,'Liberation Mono',monospace"
 
 # 站点标题和站点副标题的字体设置

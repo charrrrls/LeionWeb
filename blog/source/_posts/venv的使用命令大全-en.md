@@ -1,15 +1,15 @@
 ---
-title: Python虚拟环境venv使用命令大全
+title: Complete Command Reference for Python venv
 slug: venv-usage-commands
 author: Leion Charrrrls
-cover: ''
+cover: 'https://tc.alcy.cc/i/2025/07/29/6887aa3684c34.webp'
 tags:
   - Python
   - venv
-  - 虚拟环境
-  - 开发工具
+  - Virtual Environment
+  - Development Tools
 categories:
-  - Python开发
+  - Python Development
 password: ''
 abbrlink: 4b730665
 date: 2025-08-20 16:24:27
