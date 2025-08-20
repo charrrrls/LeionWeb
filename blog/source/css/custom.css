@@ -461,4 +461,38 @@ canvas[id*="particle"]:hover,
 }
 
 
+/* =========================
+   代码字体：Google Sans Code (仅作用于代码，不影响正文字体)
+   ========================= */
+/* 使用你提供的单一可变字体文件 (Italic[wght])，同时映射为正常与斜体使用 */
+@font-face {
+  font-family: 'Google Sans Code';
+  src: url('/fonts/GoogleSansCode-Italic[wght].ttf') format('truetype');
+  font-weight: 100 900; /* 可变权重区间，按需调整 */
+  font-style: normal; /* 将其也声明为 normal，避免代码全部变斜体 */
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Google Sans Code';
+  src: url('/fonts/GoogleSansCode-Italic[wght].ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic; /* 如有需要的真正斜体 */
+  font-display: swap;
+}
+
+/* 行内代码、代码块、预格式文本、高亮区域统一字体 */
+code, kbd, samp, pre, pre code, .highlight code, figure.highlight pre, .gist .blob-code, .gist .blob-code-inner {
+  font-family: 'Google Sans Code','JetBrains Mono','Fira Code','Source Code Pro',Menlo,Consolas,'Liberation Mono',monospace !important;
+  font-feature-settings: 'liga' 0; /* 关闭连字，保留等宽感 */
+}
+
+/* 代码块内数字行号（如果主题开启） */
+.highlight .gutter pre, .highlight td.gutter pre, .highlight .line-numbers-rows > span {
+  font-family: 'Google Sans Code','JetBrains Mono','Fira Code','Source Code Pro',Menlo,Consolas,'Liberation Mono',monospace !important;
+}
+
+/* 避免字形高度过挤，可适度增加行高 */
+pre code { line-height: 1.5; }
+
+
 

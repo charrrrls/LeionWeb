@@ -1,8 +1,8 @@
 ---
-title: "Python虚拟环境venv使用命令大全"
+title: Python虚拟环境venv使用命令大全
 slug: venv-usage-commands
 author: Leion Charrrrls
-cover: ""
+cover: ''
 tags:
   - Python
   - venv
@@ -11,7 +11,7 @@ tags:
 categories:
   - Python开发
 password: ''
-abbrlink: 
+abbrlink: 4b730665
 date: 2025-08-20 16:24:27
 ---
 

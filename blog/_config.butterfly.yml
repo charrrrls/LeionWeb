@@ -756,7 +756,7 @@ font:
   global_font_size:
   code_font_size:
   font_family:
-  code_font_family:
+  code_font_family: "'Google Sans Code','JetBrains Mono','Fira Code','Source Code Pro',Menlo,Consolas,'Liberation Mono',monospace"
 
 # 站点标题和站点副标题的字体设置
 blog_title_font:

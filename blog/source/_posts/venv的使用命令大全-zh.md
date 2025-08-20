@@ -1,18 +1,19 @@
 ---
-title: "Python虚拟环境venv使用命令大全"
+title: Python虚拟环境venv使用命令大全
 slug: venv-usage-commands
-date: 2025-08-20 16:24:27
 author: Leion Charrrrls
-cover: ""
-tags: 
+cover: ''
+tags:
   - Python
   - venv
   - 虚拟环境
   - 开发工具
-categories: 
+categories:
   - Python开发
-description: "实用、不啰嗦的 venv 指南：创建、激活、依赖管理、排雷与部署一篇说清。"
+description: 实用、不啰嗦的 venv 指南：创建、激活、依赖管理、排雷与部署一篇说清。
 toc: true
+abbrlink: 4b730665
+date: 2025-08-20 16:24:27
 ---
 venv 就是 Python 自带的虚拟环境工具：给项目单独放一套解释器和依赖，互不打扰。用它的目的就两个：不脏全局，依赖可控。下面按“先用会—再优化—再避坑”循序看，能复制就别硬记，够用即可.
 
