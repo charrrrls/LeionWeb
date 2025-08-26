@@ -1,8 +1,14 @@
 ---
-title: C++ Quick Learn
-date: 2023-10-27 10:00:00
-tags: [C++, 学习笔记]
-categories: [编程语言]
+title: C++笔记
+slug: C++ notebook
+tags:
+  - C++
+categories:
+  - 笔记
+cover: 'https://tc.alcy.cc/i/2025/07/29/6887a9118d4d8.webp'
+description: C++笔记
+abbrlink: 
+date: 2025-08-26 14:00:06
 ---
 
 ## 目录
