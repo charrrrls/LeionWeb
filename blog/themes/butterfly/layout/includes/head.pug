@@ -51,7 +51,12 @@ if (theme.pwa && theme.pwa.enable)
 
 //- main css
 link(rel='stylesheet', href=url_for(theme.asset.main_css))
-link(rel='stylesheet', href=url_for(theme.asset.fontawesome))
+if page.type === 'gallery'
+  link(rel='stylesheet' href=url_for(theme.asset.fontawesome) media='print' onload="this.onload=null;this.media='all'")
+  noscript
+    link(rel='stylesheet' href=url_for(theme.asset.fontawesome))
+else
+  link(rel='stylesheet' href=url_for(theme.asset.fontawesome))
 
 if (theme.snackbar && theme.snackbar.enable)
   link(rel='stylesheet', href=url_for(theme.asset.snackbar_css) media="print" onload="this.media='all'")

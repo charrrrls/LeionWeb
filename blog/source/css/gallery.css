@@ -27,6 +27,7 @@
 }
 
 .type-gallery #nav { opacity: 1; }
+.type-gallery #nav .fa-fw { display: inline-block; width: 1.25em; }
 .type-gallery #page-header.not-top-img,
 .type-gallery #nav.show,
 .type-gallery #content-inner { animation: none; }
