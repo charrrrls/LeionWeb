@@ -1,0 +1,34 @@
+extends includes/layout.pug
+
+block content
+  - const en = config.language === 'en'
+  - const open = en ? 'Open original' : '打开原图'
+
+  section.photo-library.wall-library.nc(data-english=en ? 'true' : 'false')
+    header.wall-heading
+      div
+        h1= en ? 'Random Images' : '随机图片'
+        p= en ? 'Illustrations and landscapes. Select a preview to open the original.' : '插画与风景，点开缩略图可查看原图。'
+      button.wall-shuffle(type='button' hidden)
+        span(aria-hidden='true') ↻
+        = en ? 'Shuffle' : '换一组'
+    .wall-grid.wall-placeholders(aria-hidden='true' hidden)
+      each _ in [1, 2, 3, 4, 5, 6]
+        span.wall-skeleton
+    .wall-grid#wall-results(aria-live='off')
+    template#wall-card
+      article.wall-card
+        a.wall-image(target='_blank' rel='noopener' title=open)
+          img(width='480' height='320' alt='' loading='lazy' decoding='async')
+          span.wall-image-note(hidden)= en ? 'Preview unavailable · Open original ↗' : '预览暂不可用 · 打开原图 ↗'
+        .wall-caption
+          a.wall-source(target='_blank' rel='noopener' aria-label=open)
+            = en ? 'Alcy' : '栗次元'
+            span(aria-hidden='true') ↗
+          button.wall-copy(type='button')= en ? 'Copy link' : '复制链接'
+    noscript
+      a(href='https://t.alcy.cc/fj' target='_blank' rel='noopener')= en ? 'Open a random landscape ↗' : '随机打开一张风景原图 ↗'
+    .wall-actions
+      button.wall-more(type='button' hidden)= en ? 'Load more' : '加载更多'
+      p.wall-status(role='status')
+    script(src=url_for('/js/random-gallery.js'))

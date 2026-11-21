@@ -39,6 +39,8 @@ link(rel="canonical" href=urlNoIndex(null,config.pretty_urls.trailing_index,conf
 
 //- 預解析
 !=partial('includes/head/preconnect', {}, {cache: true})
+if page.random_gallery
+  link(rel='preconnect' href='https://t.alcy.cc' crossorigin='anonymous')
 
 //- 網站驗證
 !=partial('includes/head/site_verification', {}, {cache: true})

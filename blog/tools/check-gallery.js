@@ -20,9 +20,21 @@ for (const language of ['', 'en/']) {
     assert.ok(detail.includes(script), 'The image filter must preserve the lightbox script')
     for (const photo of album.photos) {
       const asset = '/gallery/media/' + photo.sha + '.webp'
-      assert.ok(detail.includes(' src="' + asset + '"'), 'Missing native image source: ' + asset)
+      const isCover = !album.archive && photo === (album.photos.find(item => item.file === album.cover) || album.photos[0])
+      const preview = isCover ? asset : asset.replace('/media/', '/thumbs/')
+      assert.ok(detail.includes(' src="' + preview + '"'), 'Missing thumbnail or cover: ' + preview)
+      assert.ok(detail.includes('href="' + asset + '"'), 'Missing large photograph: ' + asset)
+      assert.ok(fs.statSync(path.join(output, preview)).size > 0)
       assert.ok(fs.statSync(path.join(output, asset)).size > 0, 'Missing local image: ' + asset)
     }
   }
+  const random = fs.readFileSync(path.join(output, language, 'random-gallery/index.html'), 'utf8')
+  const card = random.match(/<template id="wall-card">([\s\S]*?)<\/template>/)
+  assert.ok(card && random.includes('<noscript>'))
+  assert.match(card[1], /<img\b[^>]*loading="lazy"/)
+  assert.doesNotMatch(card[1], /<img\b[^>]*\ssrc=/, 'Only a live draw may assign the wallpaper thumbnail')
+  assert.ok(!random.includes('/random-gallery/thumbs/'), 'The random page must not ship a fixed image pool')
+  assert.ok(random.includes(' src="/' + language + 'js/random-gallery.js"'))
+  assert.ok(random.includes('https://leion.ssatop.top/' + language + 'random-gallery/'))
 }
-console.log('Verified both languages, album links, photo counts, image files, and lightbox scripts.')
+console.log('Verified both languages, live wallpaper templates, album thumbnails, original links, counts and viewers.')

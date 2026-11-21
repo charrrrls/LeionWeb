@@ -1,4 +1,5 @@
 const fs = require('node:fs')
+const sharp = require('sharp')
 const { readCatalog, mediaPath } = require('../gallery/catalog')
 
 hexo.locals.set('photoGallery', readCatalog)
@@ -7,8 +8,9 @@ hexo.extend.filter.register('template_locals', locals => {
   const { page, config, site } = locals
   if (page.type === 'gallery') {
     if (config.language === 'en' && page.title_en) page.title = page.title_en
-    const canonical = page.album ? 'gallery/' + page.album.slug + '/' : 'gallery/'
+    const canonical = page.random_gallery ? 'random-gallery/' : page.album ? 'gallery/' + page.album.slug + '/' : 'gallery/'
     locals.url = new URL(canonical, new URL(config.root, config.url)).href
+    if (page.random_gallery) return locals
     const album = page.album || site.photoGallery.albums.find(item => !item.archive && item.photos.length)
     if (album) {
       const cover = album.photos.find(photo => photo.file === album.cover) || album.photos[0]
@@ -38,6 +40,10 @@ hexo.extend.generator.register('photo-albums', function ({ photoGallery }) {
   if (this.config.root === '/') {
     for (const sha of media) {
       routes.push({ path: 'gallery/media/' + sha + '.webp', data: () => fs.createReadStream(mediaPath(sha)) })
+      routes.push({
+        path: 'gallery/thumbs/' + sha + '.webp',
+        data: () => sharp(mediaPath(sha)).resize({ width: 640, height: 640, fit: 'inside', withoutEnlargement: true }).webp({ quality: 72 })
+      })
     }
   }
   return routes

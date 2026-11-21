@@ -12,7 +12,7 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
   body
     !=partial('includes/loading/index', {}, {cache: true})
 
-    if theme.background
+    if theme.background && page.type !== 'gallery'
       #web_bg(style=getBgPath(theme.background))
 
     !=partial('includes/sidebar', {}, {cache: true})
