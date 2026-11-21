@@ -39,6 +39,7 @@ class SmartBackground {
      * 初始化系统
      */
     init() {
+        if (document.querySelector('#body-wrap.type-gallery')) return;
         console.log('🎨 LeionWeb 智能随机背景系统启动中...');
         this.setRandomBackground();
     }

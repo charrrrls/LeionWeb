@@ -3,16 +3,14 @@
   if globalPageType === 'post'
     - const tocStyle = page.toc_style_simple
     - const tocStyleVal = tocStyle === true || tocStyle === false ? tocStyle : theme.toc.style_simple
-    if showToc && tocStyleVal
-      .sticky_layout
+    if showToc
+      .sticky_layout.post-outline
         include ./card_post_toc.pug
-    else
+    unless showToc && tocStyleVal
       !=partial('includes/widget/card_author', {}, {cache: true})
       !=partial('includes/widget/card_announcement', {}, {cache: true})
       !=partial('includes/widget/card_top_self', {}, {cache: true})
-      .sticky_layout
-        if showToc
-          include ./card_post_toc.pug
+      div(class=showToc ? null : 'sticky_layout')
         if page.series
           include ./card_post_series.pug
         !=partial('includes/widget/card_recent_post', {}, {cache: true})

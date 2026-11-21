@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault()
         btf.scrollToDest(btf.getEleTop(document.getElementById(decodeURI(target.getAttribute('href')).replace('#', ''))), 300)
-        if (window.innerWidth < 900) {
+        if (window.innerWidth <= 900) {
           $cardTocLayout.classList.remove('open')
         }
       }
@@ -565,6 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100)
 
     btf.addEventListenerPjax(window, 'scroll', tocScrollFn, { passive: true })
+    tocScrollFn()
   }
 
   const handleThemeChange = mode => {

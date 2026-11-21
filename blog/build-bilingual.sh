@@ -6,6 +6,9 @@
 
 echo "🚀 开始构建双语博客 / Starting bilingual blog build..."
 
+# Resolve the photo collection once for both languages.
+node gallery/catalog.js || exit 1
+
 # 清理之前的构建
 echo "🧹 清理之前的构建文件 / Cleaning previous build files..."
 hexo clean

@@ -81,6 +81,18 @@
       top: 20px
       transition: top .3s
 
+  .post-outline
+    +minWidth901()
+      z-index: 2
+      margin-bottom: 20px
+
+      #card-toc
+        background: var(--global-bg)
+
+    #card-toc .toc-content .toc-link.active
+      background: #08736d
+      color: #fff
+
   .card-tag-cloud
     a
       display: inline-block

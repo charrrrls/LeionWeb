@@ -1,0 +1,72 @@
+extends includes/layout.pug
+
+block content
+  -
+    const en = config.language === 'en'
+    const albums = site.photoGallery.albums.filter(item => item.photos.length)
+    const collections = albums.filter(item => !item.archive)
+    const album = page.album
+    const name = item => en ? item.en : item.title
+    const count = n => en ? n + (n === 1 ? ' photo' : ' photos') : n + ' 张照片'
+    const media = photo => '/gallery/media/' + photo.sha + '.webp'
+    const cover = item => item.photos.find(photo => photo.file === item.cover) || item.photos[0]
+    const coverAlt = item => cover(item).file === item.cover && item.alt ? (en ? item.alt.en : item.alt.zh) : name(item)
+    const albumUrl = item => url_for('/gallery/' + item.slug + '/')
+    const galleryTitle = en ? 'Photography Gallery' : '摄影图集'
+
+  mixin albumCard(item, featured)
+    - const photo = cover(item)
+    a.album-card(class=featured ? 'album-feature' : '' href=albumUrl(item) data-folder=item.folder)
+      .album-cover
+        img(src=media(photo) width=photo.width height=photo.height alt=coverAlt(item) loading=featured ? 'eager' : 'lazy' fetchpriority=featured ? 'high' : undefined)
+      .album-caption
+        .album-label
+          h2= name(item)
+          span.album-meta= count(item.photos.length)
+        span.album-arrow(aria-hidden='true') →
+
+  section.photo-library.nc
+    if album
+      a.photo-back(href=url_for('/gallery/'))
+        span(aria-hidden='true') ←
+        = galleryTitle
+    header.photo-heading
+      h1= album ? name(album) : galleryTitle
+      .photo-meta
+        if album
+          if album.date
+            time(datetime=album.date)= album.date.replace(/-/g, '.')
+          span= count(album.photos.length)
+        else if collections.length
+          if collections.every(item => item.city === '南京')
+            span= en ? 'Nanjing' : '南京'
+          span= en ? collections.length + (collections.length === 1 ? ' album' : ' albums') : collections.length + ' 本相册'
+    if album
+      .photo-grid
+        each photo, i in album.photos
+          - const alt = photo.file === album.cover ? coverAlt(album) : name(album) + (en ? ', photo ' : '，第 ') + (i + 1) + (en ? '' : ' 张')
+          a.photo-print(href=media(photo) style='--ratio:' + (photo.width / photo.height).toFixed(4) data-original='https://raw.githubusercontent.com/charrrrls/mypic/' + site.photoGallery.revision + '/' + encodeURIComponent(album.folder) + '/' + encodeURIComponent(photo.file) aria-label=alt)
+            img(src=media(photo) alt=alt width=photo.width height=photo.height loading=i < 3 ? 'eager' : 'lazy' decoding='async')
+      dialog.photo-viewer(aria-label=en ? 'Photo viewer' : '照片查看器')
+        .viewer-toolbar
+          span.viewer-count(aria-live='polite' aria-atomic='true')
+          a.viewer-original(target='_blank' rel='noopener')= en ? 'View original' : '查看原图'
+          button.viewer-close(type='button' autofocus aria-label=en ? 'Close' : '关闭') ×
+        img.viewer-image(alt='')
+        .viewer-nav
+          button.viewer-prev(type='button' aria-label=en ? 'Previous photo' : '上一张') ←
+          button.viewer-next(type='button' aria-label=en ? 'Next photo' : '下一张') →
+      script(src=url_for('/js/gallery.js'))
+    else
+      if page.legacy_album_link
+        p.gallery-missing(hidden)= en ? 'This album is unavailable. Choose another album below.' : '这个相册暂时无法打开，可以从下方选择其他相册。'
+      if collections.length
+        .album-shelf
+          each item, i in collections
+            +albumCard(item, i === 0)
+      else
+        p= en ? 'No photo albums yet.' : '暂无摄影相册。'
+      each item in albums.filter(item => item.archive)
+        a.photo-archive(href=albumUrl(item) data-folder=item.folder)= name(item) + ' →'
+      if page.legacy_album_link
+        script(src=url_for('/js/gallery.js'))

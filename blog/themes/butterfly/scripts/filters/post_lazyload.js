@@ -9,12 +9,15 @@
 const urlFor = require('hexo-util').url_for.bind(hexo)
 
 const lazyload = htmlContent => {
-  if (hexo.theme.config.lazyload.native) {
-    return htmlContent.replace(/(<img.*?)(>)/ig, '$1 loading=\'lazy\'$2')
-  }
-
-  const bg = hexo.theme.config.lazyload.placeholder ? urlFor(hexo.theme.config.lazyload.placeholder) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-  return htmlContent.replace(/(<img.*? src=)/ig, `$1 "${bg}" data-lazy-src=`)
+  const { native, placeholder } = hexo.theme.config.lazyload
+  const bg = placeholder ? urlFor(placeholder) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+  // An image without a source must never consume the next element's src.
+  return htmlContent.replace(/<img\b(?:[^>"']|"[^"]*"|'[^']*')*>/gi, tag => {
+    const attributes = tag.replace(/"[^"]*"|'[^']*'/g, '')
+    if (/\s(?:loading|data-lazy-src)\s*=/i.test(attributes)) return tag
+    const replacement = native ? ' loading="lazy" src=' : ` src="${bg}" data-lazy-src=`
+    return tag.replace(/"[^"]*"|'[^']*'|(\ssrc\s*=)/gi, (token, src) => src ? replacement : token)
+  })
 }
 
 hexo.extend.filter.register('after_render:html', data => {

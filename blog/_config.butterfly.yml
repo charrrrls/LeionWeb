@@ -1072,7 +1072,7 @@ CDN:
     # katex_copytex:
     # lazyload:
     # local_search:
-    # main:
+    main: js/main.js
     # main_css:
     # mathjax:
     # medium_zoom:
@@ -1089,7 +1089,7 @@ CDN:
     # translate:
     # twikoo:
     # typed:
-    # utils:
+    utils: js/utils.js
     # valine:
     # waline_css:
     # waline_js:

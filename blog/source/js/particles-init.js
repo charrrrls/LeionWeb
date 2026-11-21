@@ -34,6 +34,7 @@ class ParticlesManager {
      * 创建粒子容器
      */
     createParticlesContainer() {
+        if (document.querySelector('#body-wrap.type-gallery')) return;
         // 创建粒子容器元素
         this.particlesContainer = document.createElement('div');
         this.particlesContainer.id = 'particles-js';

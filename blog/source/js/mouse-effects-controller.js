@@ -54,6 +54,7 @@ class MouseEffectsController {
     }
     
     initEffects() {
+        if (document.querySelector('#body-wrap.type-gallery')) return;
         try {
             // 初始化烟花特效
             if (this.config.enableFireworks && window.MouseFireworksEffect) {
