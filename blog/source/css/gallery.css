@@ -64,7 +64,6 @@
 
 .photo-meta,
 .album-meta,
-.photo-back,
 .photo-archive {
   color: var(--muted);
   font-size: .9rem;
@@ -102,10 +101,8 @@
 .photo-library a:focus-visible,
 .photo-library button:focus-visible { outline: 3px solid #00867d; outline-offset: 3px; }
 .photo-library a:hover h2,
-.photo-back:hover,
 .photo-archive:hover { text-decoration: underline; text-underline-offset: .2em; }
 
-.photo-back,
 .photo-archive {
   display: inline-flex;
   align-items: center;
@@ -113,107 +110,11 @@
   min-height: 44px;
 }
 
-.photo-back { margin-bottom: 12px; }
 .photo-archive { margin-top: 22px; }
 .gallery-missing { color: var(--muted); }
 
-.type-gallery #content-inner:has(.album-detail) {
-  max-width: 1456px;
-  padding-top: clamp(8px, 1.4vw, 24px);
-}
-
-.album-detail { font-family: system-ui, 'PingFang SC', sans-serif; }
-.album-topline, .sequence-heading, .wall-heading, .wall-caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.album-topline { margin-bottom: 9px; }
-.album-topline a { min-height: 44px; display: inline-flex; align-items: center; margin: 0; }
-.album-jump { color: var(--muted); font-size: .875rem; }
-.album-hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  height: clamp(360px, min(43vw, 65vh), 640px);
-  border-radius: clamp(8px, 1.25vw, 18px);
-  background: #222;
-}
-.album-hero .photo-print, .album-hero img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.photo-print { cursor: zoom-in; }
-.album-hero .photo-print::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(15deg, #08090acf 0%, #08090a56 29%, transparent 60%);
-}
-.album-hero .photo-print:focus-visible { outline: 3px solid white; outline-offset: -5px; }
-.album-title {
-  pointer-events: none;
-  position: absolute;
-  inset: auto clamp(24px, 4.5vw, 72px) clamp(26px, 3.8vw, 60px);
-  color: white;
-}
-.album-city, .album-byline { margin: 0; font-size: clamp(.85rem, 1.2vw, 1.05rem); }
-.album-city { margin-bottom: .5em; font-weight: 550; letter-spacing: .08em; }
-.album-detail .album-title h1 {
-  color: white;
-  font: 600 clamp(3rem, 6.4vw, 6.25rem)/1.12 system-ui, 'PingFang SC', sans-serif;
-  letter-spacing: -.045em;
-  text-wrap: balance;
-}
-.album-byline { display: flex; flex-wrap: wrap; align-items: center; gap: .65em; margin-top: 1em; font-variant-numeric: tabular-nums; }
-#album-works { margin-top: clamp(28px, 4vw, 64px); scroll-margin-top: 76px; }
-.sequence-heading { margin-bottom: clamp(16px, 2vw, 27px); }
-.sequence-heading h2 { font: 600 clamp(1.3rem, 2.25vw, 2.1rem)/1.2 system-ui, sans-serif; letter-spacing: -.035em; }
-.density-switch { display: inline-flex; padding: 3px; border: 1px solid var(--rule); background: var(--photo-mat); border-radius: 999px; }
-.density-switch button { min-height: 38px; padding: 0 17px; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: .86rem; cursor: pointer; }
-.density-switch [aria-pressed='true'] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px #0002; font-weight: 600; }
 .photo-library [hidden] { display: none !important; }
-.photo-grid { --row-height: clamp(230px, 26vw, 380px); display: flex; flex-wrap: wrap; gap: clamp(12px, 1.5vw, 23px); }
-.photo-grid .photo-print { flex: var(--ratio) 1 calc(var(--ratio) * var(--row-height)); min-width: 0; background: var(--photo-mat); border-radius: 4px; overflow: hidden; }
-.photo-grid::after { content: ''; flex: 100 0 0; }
-.photo-grid img { display: block; width: 100%; height: auto; }
-[data-density='compact'] .photo-grid { --row-height: clamp(110px, 12.5vw, 185px); gap: 8px; }
-
-html:has(.photo-viewer[open]) { overflow: hidden; }
-.photo-viewer[open] {
-  box-sizing: border-box;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: clamp(6px, 1.5vh, 18px);
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: max(10px, env(safe-area-inset-top)) clamp(12px, 3vw, 48px) max(12px, env(safe-area-inset-bottom));
-  border: 0;
-  color: #f7f7f7;
-  background: #101011;
-}
-.photo-viewer::backdrop { background: #101011; }
-.viewer-toolbar, .viewer-nav { display: flex; align-items: center; gap: 12px; }
-.viewer-title { margin-inline-end: auto; font-size: 1rem; font-weight: 550; }
-.viewer-original { display: inline-flex; align-items: center; min-height: 44px; color: #e2e2e5; font-size: .9rem; }
-.viewer-nav { justify-self: center; gap: 4px; border-radius: 999px; padding: 2px 5px; background: #28282b; }
-.viewer-count { min-width: 72px; text-align: center; font-size: .88rem; font-variant-numeric: tabular-nums; }
-.viewer-stage { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; min-width: 0; min-height: 0; overflow: hidden; touch-action: pan-y pinch-zoom; }
-.viewer-image { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; user-select: none; }
-.photo-viewer button { display: grid; place-content: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; color: inherit; background: transparent; font: 26px/1 system-ui, sans-serif; cursor: pointer; }
-.viewer-close { background: #28282b !important; }
-.photo-viewer button:is(:hover,:focus-visible) { background: #404044; }
+.wall-heading, .wall-caption { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .wall-library { font-family: system-ui, 'PingFang SC', sans-serif; }
 .wall-heading { align-items: flex-end; margin-bottom: clamp(20px, 3vw, 40px); }
@@ -228,7 +129,7 @@ html:has(.photo-viewer[open]) { overflow: hidden; }
 .wall-caption { gap: 4px; font-size: .85rem; line-height: 1.2; }
 .wall-source, .wall-copy { display: inline-flex; align-items: center; gap: .4em; min-height: 44px; padding: 0; color: var(--muted); background: none; font: inherit; }
 .wall-copy { cursor: pointer; }
-.wall-source:hover, .wall-copy:hover, .album-jump:hover, .viewer-original:hover { text-decoration: underline; text-underline-offset: .22em; }
+.wall-source:hover, .wall-copy:hover { text-decoration: underline; text-underline-offset: .22em; }
 .wall-shuffle, .wall-more { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 0 20px; cursor: pointer; border-radius: 999px; font: 550 .92rem/1 system-ui, sans-serif; white-space: nowrap; }
 .wall-shuffle { background: var(--ink); color: var(--paper); }
 .wall-shuffle span { font-size: 1.4em; }
@@ -243,24 +144,13 @@ html:has(.photo-viewer[open]) { overflow: hidden; }
 }
 @media (max-width: 600px) {
   .photo-heading { display: grid; gap: 10px; }
-  .album-shelf, .photo-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .album-shelf { display: grid; grid-template-columns: minmax(0, 1fr); }
   .album-cover, .album-feature .album-cover { aspect-ratio: 4 / 3; }
   .album-caption { padding: 12px 0; }
-  .album-hero { height: auto; aspect-ratio: 4 / 4.5; }
-  .album-hero .photo-print::after { background: linear-gradient(0deg, #08090ad4, #08090a36 48%, transparent 72%); }
-  .album-title { inset-inline: 21px; bottom: 26px; }
-  .photo-grid { gap: 18px; }
-  .photo-grid::after { content: none; }
-  [data-density='compact'] .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
-  [data-density='compact'] .photo-print img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
-  .density-switch button { min-height: 44px; padding: 0 13px; }
   .wall-heading { flex-wrap: wrap; gap: 12px; }
   .wall-heading p { max-width: 27ch; }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .wall-image img, .photo-grid img { transition: transform .22s ease-out; }
-  .wall-image:hover img, .photo-grid .photo-print:hover img { transform: scale(1.018); }
-}
-@media (prefers-contrast: more) {
-  .density-switch [aria-pressed='true'], .viewer-nav { outline: 1px solid currentColor; }
+  .wall-image img { transition: transform .22s ease-out; }
+  .wall-image:hover img { transform: scale(1.018); }
 }

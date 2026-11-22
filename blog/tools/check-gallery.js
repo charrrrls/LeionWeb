@@ -18,13 +18,20 @@ for (const language of ['', 'en/']) {
     const detail = fs.readFileSync(path.join(root, album.slug, 'index.html'), 'utf8')
     assert.equal((detail.match(/class="photo-print"/g) || []).length, album.photos.length)
     assert.ok(detail.includes(script), 'The image filter must preserve the lightbox script')
+    assert.ok(detail.includes('class="motion-toggle control"') && detail.includes('class="photo-viewer"'))
+    assert.ok(!detail.includes('id="page-header"') && !detail.includes('id="footer"'), 'Album chrome must not take space on the photo wall')
+    for (const columns of [2, 3, 4]) {
+      assert.equal(detail.split('--y' + columns + ':').length - 1, album.photos.length, 'Each tile needs a masonry position before images load')
+    }
+    if (album.photos.length > 5) assert.ok(detail.includes('<template><picture>') && detail.includes('<noscript><img'), 'Offscreen photos need deferred and script-free thumbnails')
     for (const photo of album.photos) {
       const asset = '/gallery/media/' + photo.sha + '.webp'
-      const isCover = !album.archive && photo === (album.photos.find(item => item.file === album.cover) || album.photos[0])
-      const preview = isCover ? asset : asset.replace('/media/', '/thumbs/')
-      assert.ok(detail.includes(' src="' + preview + '"'), 'Missing thumbnail or cover: ' + preview)
+      const preview = asset.replace('/media/', '/thumbs/')
+      assert.ok(detail.includes(' src="' + preview + '"'), 'Missing wall thumbnail: ' + preview)
+      assert.ok(!detail.includes(' src="' + asset + '"'), 'The wall must request a large image only on opening')
       assert.ok(detail.includes('href="' + asset + '"'), 'Missing large photograph: ' + asset)
       assert.ok(fs.statSync(path.join(output, preview)).size > 0)
+      assert.ok(fs.statSync(path.join(output, preview.replace('/thumbs/', '/thumbs/small/'))).size > 0)
       assert.ok(fs.statSync(path.join(output, asset)).size > 0, 'Missing local image: ' + asset)
     }
   }

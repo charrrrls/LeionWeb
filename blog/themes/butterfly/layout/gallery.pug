@@ -5,7 +5,6 @@ block content
     const en = config.language === 'en'
     const albums = site.photoGallery.albums.filter(item => item.photos.length)
     const collections = albums.filter(item => !item.archive)
-    const album = page.album
     const name = item => en ? item.en : item.title
     const count = n => en ? n + (n === 1 ? ' photo' : ' photos') : n + ' 张照片'
     const media = photo => '/gallery/media/' + photo.sha + '.webp'
@@ -14,8 +13,6 @@ block content
     const coverAlt = item => cover(item).file === item.cover && item.alt ? (en ? item.alt.en : item.alt.zh) : name(item)
     const albumUrl = item => url_for('/gallery/' + item.slug + '/')
     const galleryTitle = en ? 'Photography Gallery' : '摄影图集'
-    const lead = album && !album.archive ? cover(album) : null
-    const sequence = album ? album.photos.filter(photo => photo !== lead) : []
 
   mixin albumCard(item, featured)
     - const photo = cover(item)
@@ -33,80 +30,23 @@ block content
           span.album-meta= count(item.photos.length)
         span.album-arrow(aria-hidden='true') →
 
-  mixin printPhoto(photo, i, featured)
-    - const alt = photo.file === album.cover ? coverAlt(album) : name(album) + (en ? ', photo ' : '，第 ') + (i + 1) + (en ? '' : ' 张')
-    - const original = 'https://raw.githubusercontent.com/charrrrls/mypic/' + site.photoGallery.revision + '/' + encodeURIComponent(album.folder) + '/' + encodeURIComponent(photo.file)
-    a.photo-print(href=media(photo) style=featured ? undefined : '--ratio:' + (photo.width / photo.height).toFixed(4) data-original=original aria-label=alt title=en ? 'Enlarge photo' : '放大照片')
-      if featured
-        picture
-          source(media='(max-width: 600px)' srcset=thumb(photo))
-          img(src=media(photo) width=photo.width height=photo.height alt=alt loading='eager' fetchpriority='high' decoding='async')
-      else
-        img(src=thumb(photo) width=photo.width height=photo.height alt=alt loading='lazy' decoding='async')
-
-  section.photo-library.nc(class=album ? 'album-detail' : undefined)
-    if album
-      .album-topline
-        a.photo-back(href=url_for('/gallery/'))
-          span(aria-hidden='true') ←
-          = galleryTitle
-        if sequence.length && lead
-          a.album-jump(href='#album-works')= en ? 'Browse photos ↓' : '浏览作品 ↓'
-      if lead
-        header.album-hero
-          +printPhoto(lead, 0, true)
-          .album-title
-            if album.city
-              p.album-city= en && album.city === '南京' ? 'Nanjing' : album.city
-            h1= name(album)
-            .album-byline
-              if album.date
-                time(datetime=album.date)= album.date.replace(/-/g, '.')
-                span(aria-hidden='true') ·
-              span= count(album.photos.length)
-      else
-        header.photo-heading
-          h1= name(album)
-          span.album-meta= count(album.photos.length)
-      if sequence.length
-        section#album-works(aria-label=en ? 'Photographs' : '相册作品')
-          .sequence-heading
-            h2= en ? 'Photographs' : '相册作品'
-            .density-switch(role='group' aria-label=en ? 'Photo spacing' : '照片排列方式' hidden)
-              button(type='button' data-density='spacious' aria-pressed='true')= en ? 'Spacious' : '舒展'
-              button(type='button' data-density='compact' aria-pressed='false')= en ? 'Compact' : '紧凑'
-          .photo-grid
-            each photo, i in sequence
-              +printPhoto(photo, i + (lead ? 1 : 0), false)
-      dialog.photo-viewer(aria-label=en ? 'Photo viewer' : '照片查看器')
-        .viewer-toolbar
-          strong.viewer-title= name(album)
-          a.viewer-original(target='_blank' rel='noopener')= en ? 'Original ↗' : '原图 ↗'
-          button.viewer-close(type='button' autofocus aria-label=en ? 'Close' : '关闭') ×
-        .viewer-stage
-          img.viewer-image(alt='' draggable='false')
-        .viewer-nav
-          button.viewer-prev(type='button' aria-label=en ? 'Previous photo' : '上一张') ‹
-          span.viewer-count(aria-live='polite' aria-atomic='true')
-          button.viewer-next(type='button' aria-label=en ? 'Next photo' : '下一张') ›
-      script(src=url_for('/js/gallery.js'))
+  section.photo-library.nc
+    header.photo-heading
+      h1= galleryTitle
+      .photo-meta
+        if collections.length
+          if collections.every(item => item.city === '南京')
+            span= en ? 'Nanjing' : '南京'
+          span= en ? collections.length + (collections.length === 1 ? ' album' : ' albums') : collections.length + ' 本相册'
+    if page.legacy_album_link
+      p.gallery-missing(hidden)= en ? 'This album is unavailable. Choose another album below.' : '这个相册暂时无法打开，可以从下方选择其他相册。'
+    if collections.length
+      .album-shelf
+        each item, i in collections
+          +albumCard(item, i === 0)
     else
-      header.photo-heading
-        h1= galleryTitle
-        .photo-meta
-          if collections.length
-            if collections.every(item => item.city === '南京')
-              span= en ? 'Nanjing' : '南京'
-            span= en ? collections.length + (collections.length === 1 ? ' album' : ' albums') : collections.length + ' 本相册'
-      if page.legacy_album_link
-        p.gallery-missing(hidden)= en ? 'This album is unavailable. Choose another album below.' : '这个相册暂时无法打开，可以从下方选择其他相册。'
-      if collections.length
-        .album-shelf
-          each item, i in collections
-            +albumCard(item, i === 0)
-      else
-        p= en ? 'No photo albums yet.' : '暂无摄影相册。'
-      each item in albums.filter(item => item.archive)
-        a.photo-archive(href=albumUrl(item) data-folder=item.folder)= name(item) + ' →'
-      if page.legacy_album_link
-        script(src=url_for('/js/gallery.js'))
+      p= en ? 'No photo albums yet.' : '暂无摄影相册。'
+    each item in albums.filter(item => item.archive)
+      a.photo-archive(href=albumUrl(item) data-folder=item.folder)= name(item) + ' →'
+    if page.legacy_album_link
+      script(src=url_for('/js/gallery.js'))

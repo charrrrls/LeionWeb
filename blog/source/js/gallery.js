@@ -13,20 +13,78 @@
 
   const library = document.querySelector('.album-detail')
   if (!library) return
-  const density = library.querySelector('.density-switch')
-  if (density) {
-    density.hidden = false
-    density.addEventListener('click', event => {
-      const choice = event.target.closest('button')
-      if (!choice) return
-      library.dataset.density = choice.dataset.density
-      for (const button of density.children) button.setAttribute('aria-pressed', String(button === choice))
-    })
+  const prints = Array.from(library.querySelectorAll('.photo-print'))
+  function reveal(print) {
+    const template = print.querySelector('template')
+    if (template) template.replaceWith(template.content)
   }
+  if ('IntersectionObserver' in window) {
+    const nearby = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        reveal(entry.target)
+        nearby.unobserve(entry.target)
+      }
+    }, { rootMargin: '280px 0px' })
+    for (const print of prints) if (print.querySelector('template')) nearby.observe(print)
+  } else prints.forEach(reveal)
+
   const viewer = library.querySelector('.photo-viewer')
+  const firstImage = prints[0].querySelector('img')
+  const toggle = library.querySelector('.motion-toggle')
+  const dock = toggle.parentElement
+  const motion = matchMedia('(prefers-reduced-motion: reduce)')
+  let playing = !motion.matches
+  let frame = 0, lastTick = 0, position = 0, drawn = 0, end = 0
+
+  function tick(now) {
+    if (lastTick) position += Math.min(now - lastTick, 64) * .015
+    lastTick = now
+    const next = Math.min(end, Math.round(position * devicePixelRatio) / devicePixelRatio)
+    if (next !== drawn) window.scrollTo(0, next)
+    drawn = next
+    if (position >= end) return pause()
+    frame = requestAnimationFrame(tick)
+  }
+  function syncMotion() {
+    cancelAnimationFrame(frame)
+    lastTick = 0
+    position = drawn = window.scrollY
+    end = Math.max(0, document.scrollingElement.scrollHeight - document.documentElement.clientHeight)
+    toggle.hidden = end < 1
+    toggle.setAttribute('aria-pressed', String(playing))
+    toggle.title = playing ? toggle.dataset.pause : toggle.dataset.play
+    toggle.setAttribute('aria-label', toggle.title)
+    const moving = playing && firstImage.complete && !toggle.hidden && !document.hidden && !viewer.open
+    dock.toggleAttribute('data-moving', moving)
+    if (moving) frame = requestAnimationFrame(tick)
+  }
+  function pause() {
+    if (!playing) return
+    playing = false
+    syncMotion()
+  }
+  toggle.addEventListener('click', () => {
+    playing = !playing
+    if (playing && window.scrollY >= end - 1) window.scrollTo(0, 0)
+    syncMotion()
+  })
+  window.addEventListener('wheel', pause, { passive: true })
+  window.addEventListener('pointerdown', event => { if (!toggle.contains(event.target)) pause() }, { passive: true })
+  window.addEventListener('scroll', () => { if (Math.abs(window.scrollY - drawn) > 2) pause() }, { passive: true })
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Tab' || (event.target !== toggle && [' ', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(event.key))) pause()
+  })
+  motion.addEventListener('change', () => { if (motion.matches) pause() })
+  document.addEventListener('visibilitychange', syncMotion)
+  window.addEventListener('resize', syncMotion)
+  window.addEventListener('pageshow', syncMotion)
+  window.addEventListener('pagehide', () => cancelAnimationFrame(frame))
+  firstImage.addEventListener('load', syncMotion, { once: true })
+  firstImage.addEventListener('error', syncMotion, { once: true })
+  syncMotion()
   if (!viewer || typeof viewer.showModal !== 'function') return
 
-  const prints = Array.from(document.querySelectorAll('.photo-print'))
   const image = viewer.querySelector('.viewer-image')
   const counter = viewer.querySelector('.viewer-count')
   const original = viewer.querySelector('.viewer-original')
@@ -40,6 +98,7 @@
   function show(index) {
     current = (index + prints.length) % prints.length
     const print = prints[current]
+    reveal(print)
     const thumbnail = print.querySelector('img')
     image.alt = thumbnail.alt
     image.src = thumbnail.currentSrc || thumbnail.src
@@ -58,6 +117,7 @@
     const print = event.target.closest('.photo-print')
     if (!print || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
     event.preventDefault()
+    pause()
     print.focus({ preventScroll: true })
     show(prints.indexOf(print))
     viewer.showModal()
